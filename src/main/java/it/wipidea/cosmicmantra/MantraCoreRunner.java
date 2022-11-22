@@ -248,7 +248,7 @@ public class MantraCoreRunner {
         	//test = System.getenv("=Z:");
             test = System.getenv("=Z:");
             if (test==null) {
-                test = "Z:/tmp/mycosmicmantra/Secret";
+                test = "Z:/tmp/mycosmicmantra/PrecettiCosmici";
             }
             System.out.printf("CURRENT DIR is [%s]\n", test);
         	/*
@@ -440,7 +440,7 @@ public class MantraCoreRunner {
 
             if (true)
             {
-                System.err.println("Speech synth disabled, cercare motivo per cui non carica correttamente su Windows le voci, mentre su Limux risultano rovinate");
+                System.err.println("Speech synth disabled, cercare motivo per cui non carica correttamente su Windows le voci, mentre su Linux risultano rovinate");
                 return;
             }
 
