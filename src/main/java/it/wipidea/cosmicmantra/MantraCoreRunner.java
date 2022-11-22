@@ -3,11 +3,9 @@ package it.wipidea.cosmicmantra;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
-import it.wipidea.CosmicInvocation;
 import it.wipidea.cosmicmantra.core.MantraChannelManager;
 import it.wipidea.cosmicmantra.core.MantraSingularityDetector;
 import it.wipidea.cosmicmantra.core.MyCosmicMantraCore;
-import it.wipidea.cosmicmantra.gui.MantraFX;
 import it.wipidea.cosmicmantra.gui.MyJFrame;
 
 import javax.swing.*;
@@ -38,7 +36,7 @@ public class MantraCoreRunner {
     //public static final String GFX_PATH_TMP = "/tmp/temp.txt";
     public final static short MANTRA_CLASS = 0, MANTRA_CONFIGURATION = 1;
 
-    public final static int FLAG_TEST = -1, FLAG_ALL = 0, FLAG_COSMIC = 1, FLAG_CHRISTIAN = 2, FLAG_BIBLE = 3, FLAG_LATIN = 4, FLAG_ANGELS = 5, FLAG_SECRET = 6;
+    public final static int FLAG_TEST = -1, FLAG_ALL = 0, FLAG_COSMIC = 1, FLAG_CHRISTIAN = 2, FLAG_BIBLE = 3, FLAG_LATIN = 4, FLAG_ANGELS = 5, FLAG_SECRET = 6, FLAG_PRECETTI_COSMICI = 7;
 
     public final static String STAT_KEY_TOTALS = "totalIterations";
 
@@ -222,26 +220,37 @@ public class MantraCoreRunner {
 
     }
 
+    public void runMantraPrecettiCosmici() throws IOException, InterruptedException {
+
+        this.addTask(new MyCosmicMantraCore("/EptalogoCosmico_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/EptalogoCristico_Configuration.properties"));
+
+    }
+
     public Integer detectSetting() {
 
-/*
+
         java.util.Map map =  System.getenv();
 
         System.out.println("===ENV===");
-        System.out.println(map);
+//        System.out.println(map);
         for (Object o : map.keySet()) {
             System.out.println(String.valueOf(o) + ": "  + map.get(o));
         }
         System.out.println("---ENV---");
-*/
+
 
 
         String test = System.getenv("PWD");
         if (test==null) {
         	System.out.println("Hello World! You Are Running Cosmic Mantra from Within A WINDOWS");
         	
-        	test = System.getenv("=Z:");
-        	System.out.printf("CURRENT DIR is [%s]\n", test);
+        	//test = System.getenv("=Z:");
+            test = System.getenv("=Z:");
+            if (test==null) {
+                test = "Z:/tmp/mycosmicmantra/Secret";
+            }
+            System.out.printf("CURRENT DIR is [%s]\n", test);
         	/*
         	System.exit(1);
         	return FLAG_ALL;
@@ -270,6 +279,8 @@ public class MantraCoreRunner {
             return FLAG_LATIN;
         } else if (arg.equals("Angels")) {
             return FLAG_ANGELS;
+        } else if (arg.equals("PrecettiCosmici")) {
+            return FLAG_PRECETTI_COSMICI;
         } else if (arg.equals("playground")) {
             return FLAG_TEST;
         } else {
@@ -293,6 +304,7 @@ public class MantraCoreRunner {
                 this.runMantraChristian();
                 this.runMantraBible();
                 this.runMantraLatin();
+                this.runMantraPrecettiCosmici();
                 break;
             case FLAG_SECRET:
                 this.runMantraSecret();
@@ -311,6 +323,9 @@ public class MantraCoreRunner {
                 break;
             case FLAG_ANGELS:
                 this.runMantraAngels();
+                break;
+            case FLAG_PRECETTI_COSMICI:
+                this.runMantraPrecettiCosmici();
                 break;
         }
 
