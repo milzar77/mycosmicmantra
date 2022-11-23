@@ -7,6 +7,7 @@ import it.wipidea.cosmicmantra.core.MantraChannelManager;
 import it.wipidea.cosmicmantra.core.MantraSingularityDetector;
 import it.wipidea.cosmicmantra.core.MyCosmicMantraCore;
 import it.wipidea.cosmicmantra.gui.MyJFrame;
+import it.wipidea.cosmicmantra.utils.MantraFileUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -64,8 +65,6 @@ public class MantraCoreRunner {
         STATS.put(STAT_KEY_LAST2ND_PRIMENUM, 0L);
         STATS.put(STAT_KEY_LAST3RD_PRIMENUM, 0L);
 
-
-        //STATS.put(STAT_KEY_TOTALS_FOR_INSTANCE, 0L);
     }
 
     static { // initializing shared coordinates
@@ -386,7 +385,6 @@ public class MantraCoreRunner {
         //STATS
         //STATS.put(STAT_KEY_TOTALS, 0L);
         //STATS.put(STAT_KEY_TOTAL_PRIMENUMS, 0L);
-        //STATS.put(STAT_KEY_TOTALS_FOR_INSTANCE, 0L);
 
     }
 
@@ -395,49 +393,12 @@ public class MantraCoreRunner {
         //STATS
         //STATS.put(STAT_KEY_TOTALS, 0L);
         //STATS.put(STAT_KEY_TOTAL_PRIMENUMS, 0L);
-        //STATS.put(STAT_KEY_TOTALS_FOR_INSTANCE, 0L);
 
-        scriviStatistica(STATS);
+        String[] info2print = {DUMMY_TEST_HEADER, STAT_KEY_TOTALS, STAT_KEY_TOTAL_PRIMENUMS, STAT_KEY_TOTALS_FOR_INSTANCE, STAT_KEY_TOTAL_PRIMES_FOR_INSTANCE};
+
+        MantraFileUtil.statisticaSuFile(STATS, info2print);
 
 
-    }
-
-    private static void scriviStatistica(ConcurrentHashMap hash) {
-        File f = new File(MantraCoreRunner.STATS_GLOBAL_PATH);
-        try {
-            FileWriter fw = new FileWriter(f, false);
-            //fw.append( String.format( "x=%s;y=%s;w=%s;h=%s", ((Point)objects[0]).x, ((Point)objects[0]).y, ((Dimension)objects[1]).width, ((Dimension)objects[1]).height ));
-            fw.append(DUMMY_TEST_HEADER+"\n");
-            fw.append( String.format(
-                    "ITERAZIONI TOTALI=%s;" +
-                    "NUMERI PRIMI TOTALI=%s;" +
-                    "\n",
-                    hash.get(STAT_KEY_TOTALS),
-                    hash.get(STAT_KEY_TOTAL_PRIMENUMS)
-            ));
-
-            for (Object k : hash.keySet()) {
-                if (k.toString().startsWith(STAT_KEY_TOTALS_FOR_INSTANCE)) {
-                    fw.append(
-                            String.format("%s=%s;" + "\n", k, hash.get( k ) )
-                    );
-                    String kSep = STAT_KEY_TOTAL_PRIMES_FOR_INSTANCE+k.toString().substring(k.toString().indexOf("-"));
-                    //System.out.println("DEBUG SEP = " + kSep);
-                    if (hash.containsKey(kSep)) {
-                        //System.out.println("DEBUG CHECK IT OUT THIS ! ");
-                        fw.append(
-                                String.format("%s=%s;" + "\n", kSep, hash.get( kSep ) )
-                        );
-                    }
-                    //composeSeedFor
-                }
-            }
-
-            fw.flush();
-            fw.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public static MantraRunType EN_TYPE = null;
