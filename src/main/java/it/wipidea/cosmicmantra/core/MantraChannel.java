@@ -1,13 +1,10 @@
 package it.wipidea.cosmicmantra.core;
 
 
-import it.wipidea.cosmicmantra.gui.MantraDrawerGUI;
 import it.wipidea.cosmicmantra.gui.MantraFX;
 import it.wipidea.cosmicmantra.gui.MantraFrame;
-import it.wipidea.mantra.objs.MantraWord;
+import it.wipidea.cosmicmantra.core.objects.MantraWord;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 public class MantraChannel {

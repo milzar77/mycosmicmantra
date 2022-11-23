@@ -1,7 +1,6 @@
-package it.wipidea.mantra.objs;
+package it.wipidea.cosmicmantra.core.objects;
 
 
-import java.util.Objects;
 import java.util.Vector;
 
 public class MantraWords {

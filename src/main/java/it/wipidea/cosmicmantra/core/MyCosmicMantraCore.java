@@ -2,8 +2,8 @@ package it.wipidea.cosmicmantra.core;
 
 import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.MantraRunType;
-import it.wipidea.mantra.objs.MantraWord;
-import it.wipidea.mantra.objs.MantraWords;
+import it.wipidea.cosmicmantra.core.objects.MantraWord;
+import it.wipidea.cosmicmantra.core.objects.MantraWords;
 
 import java.io.IOException;
 import java.util.Properties;

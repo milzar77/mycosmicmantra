@@ -1,11 +1,9 @@
 package it.wipidea.cosmicmantra.gui;
 
-import com.sun.speech.freetts.Voice;
-import com.sun.speech.freetts.VoiceManager;
 import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.core.MyKeyChecker;
 import it.wipidea.cosmicmantra.utils.MantraUtil;
-import it.wipidea.mantra.objs.MantraWord;
+import it.wipidea.cosmicmantra.core.objects.MantraWord;
 
 import javax.swing.*;
 import java.awt.*;
