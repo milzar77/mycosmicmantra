@@ -14,8 +14,6 @@ import java.util.ResourceBundle;
  * Nome progetto: MY COSMIC MANTRA
  * TODO: ricreacre in 3D con Unity
  *
- * TODO: vedere come si faceva a fare una JFrame window con maschera alpha su bordi per effetto balloon
- * TODO: aggiungere i comandamenti cristici appresi da Nuova Civiltà
  * TODO: aggiungere code di accodamento numeri primi in base a flusso canale, tipo elenco di tutti i numeri primi rilevati/incontrati di mantra cosmic etc
  */
 
@@ -25,7 +23,7 @@ public class MyCosmicMantraCore {
     public Long MANTRA_INTERVAL_PRAYER;
     public Integer LIMIT_FOR_MANTRA_KEYWORD;
 
-    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_CHI = "chinese", LANG_HIN = "hindi";
+    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_SWE = "swedish", LANG_CHI = "chinese", LANG_HIN = "hindi";
 
     private String keywordSep = ",";
 
@@ -43,6 +41,7 @@ public class MyCosmicMantraCore {
 
 
     public void prepareMantra(String fileName) {
+        //FV: caricamento del file di configurazione del mantra corrente
         PROPS = new Properties();
         try {
             //PROPS.load( Object.class.getClass().getResource( System.getProperty("inputFile") ).openConnection().getInputStream() );
@@ -142,6 +141,11 @@ public class MyCosmicMantraCore {
         myMantraKeywords.addMantraDirective(LANG_DEU, "Frieden");
         myMantraKeywords.addMantraDirective(LANG_DEU, "Harmonie");
         myMantraKeywords.addMantraDirective(LANG_DEU, "Wohlstand");
+
+        myMantraKeywords.addMantraDirective(LANG_SWE, "Fred");
+        myMantraKeywords.addMantraDirective(LANG_SWE, "Harmoni");
+        myMantraKeywords.addMantraDirective(LANG_SWE, "Välstånd");
+
 
         myMantraKeywords.addMantraDirective(LANG_CHI, "和平");
         myMantraKeywords.addMantraDirective(LANG_CHI, "和谐");
