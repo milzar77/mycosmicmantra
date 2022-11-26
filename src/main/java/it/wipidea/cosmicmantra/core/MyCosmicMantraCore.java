@@ -220,7 +220,7 @@ public class MyCosmicMantraCore {
                 intervalMk = mantraKeyInterval;
             }
 
-            if (MantraCoreRunner.EN_TYPE == MantraRunType.CONSOLE) {
+            /*if (MantraCoreRunner.EN_TYPE == MantraRunType.CONSOLE) {
                 //ONLY FOR CONSOLE
                 Thread.sleep(intervalMk);
             } else {
@@ -231,7 +231,10 @@ public class MyCosmicMantraCore {
                     throw new RuntimeException(e);
                 }
 
-            }
+            }*/
+
+            Thread.sleep(intervalMk);
+
         }
 
 
