@@ -44,12 +44,15 @@ public class MantraChannel {
             //LOG CAOS: System.out.println(message);
         }
         if (mantraInstance.PROPS.containsKey("dontReadBackAgain")) {
-            if ( mantraInstance.PROPS.getProperty("dontReadBackAgain").equals("byStep") ) {
+            if ( mantraInstance.PROPS.getProperty("dontReadBackAgain").equals("bySingleStep") ) {
                 System.out.println("ByStep READ");
                 mantraWindow.communicateMessage2(row, limit_for_mantra_keyword, mw);
-            } else {
+            } else if ( mantraInstance.PROPS.getProperty("dontReadBackAgain").equals("byLimitedStep") ) {
                 System.out.println("NOT_ByStep READ");
+                mantraWindow.canvasBuffer = null;
                 mantraWindow.communicateMessage3(row, limit_for_mantra_keyword, mw);
+            } else {
+                mantraWindow.communicateMessage1(row, limit_for_mantra_keyword, mw);
             }
         } else {
             mantraWindow.communicateMessage1(row, limit_for_mantra_keyword, mw);
