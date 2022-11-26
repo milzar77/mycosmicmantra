@@ -171,7 +171,7 @@ public class MantraFrame extends JFrame {
             @Override
             public void run() {
                 super.run();
-                while (true) {
+                while (true && canvasBuffer!=null) {
                     if (canvasBuffer.isValid())
                         canvasBuffer.repaint();
                     else
@@ -248,7 +248,7 @@ public class MantraFrame extends JFrame {
             posYBuffer = /*MARGIN_Y + */posY;
         }
 
-        resetMyBuffer= true;//row == rows;
+        //resetMyBuffer= true;//row == rows;
         //if (resetMyBuffer) System.out.printf("RESETTING BUFFER [%s] = %s\n", sentenceBuffer, resetMyBuffer);
         //FIXME: ADEGUARE PER GFX
         /*try {
@@ -288,7 +288,7 @@ public class MantraFrame extends JFrame {
             posYBuffer = /*MARGIN_Y + */posY;
         }
 
-        resetMyBuffer=true;
+        //resetMyBuffer=true;
         try {
             Thread.sleep(INTERVAL_KEYWORD);
         } catch (InterruptedException e) {
@@ -361,13 +361,13 @@ public class MantraFrame extends JFrame {
 
     public void paint(Graphics g) {
         //super.paint(g);
-        if (canvasBuffer==null)
+        if (canvasBuffer==null) {
             this.paintMaskAlpha(g);
-
-        canvasBuffer.sentenceBuffer = this.sentenceBuffer;
-
-        super.paint(g);
-        //canvasBuffer.repaint();
+        } else {
+            canvasBuffer.sentenceBuffer = this.sentenceBuffer;
+            super.paint(g);
+            //canvasBuffer.repaint();
+        }
     }
 
     private void paintMaskAlpha(Graphics g) {
