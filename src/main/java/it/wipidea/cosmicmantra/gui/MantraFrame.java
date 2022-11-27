@@ -334,43 +334,12 @@ public class MantraFrame extends JFrame {
         this.repaint();
     }
 
-    boolean resetMyBuffer = false;
-    float ALPHA_START = 0.5f;
-    float ALPHA_END = 1.0f;
-    float ALPHA_LIMIT_END = 1.0f;
-    float alpha = ALPHA_START;
 
-    String sentenceBuffer = "";
-
-    public Integer posXBuffer = 0;
-    public Integer posYBuffer = 0;
-
-    Color BG_COLOR = Color.WHITE;
-    Color FG_COLOR = Color.BLACK;
-
-    private float stroke = 3;
-
-    private Color current = FG_COLOR;
-    /*private Color current = Color.BLACK;
-            for (int i = current.getGreen(); current.getGreen()<255; i++) {
-        current=current.brighter();
-        if (i%6==0) break;
-    }
-            */
-    private int alphaMask = 0;
-
-    public void paint(Graphics g) {
-        //super.paint(g);
-        if (canvasBuffer==null) {
-            this.paintMaskAlpha(g);
-        } else {
-            canvasBuffer.sentenceBuffer = this.sentenceBuffer;
-            super.paint(g);
-            //canvasBuffer.repaint();
-        }
-    }
 
     private void paintMaskAlpha(Graphics g) {
+
+        current = Color.YELLOW;
+
         Graphics2D g2d = (Graphics2D) g;
         //set the opacity
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha));
@@ -385,6 +354,10 @@ public class MantraFrame extends JFrame {
         //g2d.drawRect(10, 10, 100, 100);
 
         //int posY = cnt * TEXT_JUMP_Y;
+
+        // imposto il controllo di visualizzazione della stella
+        if ( showStar )
+            MantraFX.getInstance(this.getName()).startFairyLights(g2d, this);
 
         MantraUtil.drawStringWithNewLine(g2d, sentenceBuffer, posXBuffer, posYBuffer);//g
         //OLD SAFE: g2d.drawString(sentenceBuffer, posXBuffer, posYBuffer);
@@ -420,16 +393,60 @@ public class MantraFrame extends JFrame {
             if (alpha >= ALPHA_LIMIT_END) {
                 alpha = ALPHA_START;
             }
-            repaint();
+            //repaint();
         }
-        //repaint();
+        repaint();
 
 
         //sleep for a bit
         try {
-            Thread.sleep(50);//INTERVAL_KEYWORD
+            Thread.sleep(
+                    //10
+                    //50//effetto sfumato OTTIMO!
+                    75
+                    //1999//BUGGED ma produce una finestra con sfondo invisibile FANTASTICO!
+                    //INTERVAL_KEYWORD//come sopra se elevato
+            );
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+
+
+    boolean resetMyBuffer = false;
+    float ALPHA_START = 0.20f;
+    float ALPHA_END = 1.0f;
+    float ALPHA_LIMIT_END = 1.0f;
+    float alpha = ALPHA_START;
+
+    String sentenceBuffer = "";
+
+    public Integer posXBuffer = 0;
+    public Integer posYBuffer = 0;
+
+    Color BG_COLOR = Color.WHITE;
+    Color FG_COLOR = Color.BLACK;
+
+    private float stroke = 3;
+
+    private Color current = FG_COLOR;
+    /*private Color current = Color.BLACK;
+            for (int i = current.getGreen(); current.getGreen()<255; i++) {
+        current=current.brighter();
+        if (i%6==0) break;
+    }
+            */
+    private int alphaMask = 0;
+
+    public void paint(Graphics g) {
+        //super.paint(g);
+        if (canvasBuffer==null) {
+            this.paintMaskAlpha(g);
+        } else {
+            canvasBuffer.sentenceBuffer = this.sentenceBuffer;
+            super.paint(g);
+            //canvasBuffer.repaint();
         }
     }
 

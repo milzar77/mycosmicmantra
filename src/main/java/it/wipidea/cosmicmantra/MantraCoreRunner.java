@@ -234,7 +234,7 @@ public class MantraCoreRunner {
 
     }
 
-    public Integer detectSetting() {
+    public EnMantraInvocationType detectSetting() {
 
 
         java.util.Map map =  System.getenv();
@@ -276,39 +276,40 @@ public class MantraCoreRunner {
         String arg = fTest.getName();
 
         if (arg.equals("Secret")) {
-            return FLAG_SECRET;
+            return EnMantraInvocationType.Secret;
         } else if (arg.equals("Cosmic")) {
-            return FLAG_COSMIC;
+            return EnMantraInvocationType.Cosmic;
         } else if (arg.equals("Christian")) {
-            return FLAG_CHRISTIAN;
+            return EnMantraInvocationType.Christian;
         } else if (arg.equals("Bible")) {
-            return FLAG_BIBLE;
+            return EnMantraInvocationType.Bible;
         } else if (arg.equals("Latin")) {
-            return FLAG_LATIN;
+            return EnMantraInvocationType.Latin;
         } else if (arg.equals("Angels")) {
-            return FLAG_ANGELS;
+            return EnMantraInvocationType.Angels;
         } else if (arg.equals("PrecettiCosmici")) {
-            return FLAG_PRECETTI_COSMICI;
+            return EnMantraInvocationType.PrecettiCosmici;
         } else if (arg.equals("PrecettiCosmiciSintetici")) {
-            return FLAG_PRECETTI_COSMICI_SINTETICI;
+            return EnMantraInvocationType.PrecettiCosmiciSintetici;
         } else if (arg.equals("playground")) {
-            return FLAG_TEST;
+            return EnMantraInvocationType.Test;
         } else {
-            return FLAG_ALL;
+            return EnMantraInvocationType.All;
         }
     }
 
     public static HashMap<Long, String> elenco_numeri_primi = MantraSingularityDetector.primesHash;
 
-    public MantraCoreRunner() throws IOException, InterruptedException {
+    public MantraCoreRunner(EnMantraInvocationType MYSWITCH) throws IOException, InterruptedException {
 
-        Integer MYSWITCH = detectSetting();
+        if(MYSWITCH==null)
+            MYSWITCH = detectSetting();
 
         switch (MYSWITCH) {
-            case FLAG_TEST:
+            case Test:
                 this.runMantraTest();
                 break;
-            case FLAG_ALL:
+            case All:
                 this.runMantraSecret();
                 this.runMantraCosmic();
                 this.runMantraChristian();
@@ -316,28 +317,28 @@ public class MantraCoreRunner {
                 this.runMantraLatin();
                 this.runMantraPrecetti();
                 break;
-            case FLAG_SECRET:
+            case Secret:
                 this.runMantraSecret();
                 break;
-            case FLAG_COSMIC:
+            case Cosmic:
                 this.runMantraCosmic();
                 break;
-            case FLAG_CHRISTIAN:
+            case Christian:
                 this.runMantraChristian();
                 break;
-            case FLAG_BIBLE:
+            case Bible:
                 this.runMantraBible();
                 break;
-            case FLAG_LATIN:
+            case Latin:
                 this.runMantraLatin();
                 break;
-            case FLAG_ANGELS:
+            case Angels:
                 this.runMantraAngels();
                 break;
-            case FLAG_PRECETTI_COSMICI:
+            case PrecettiCosmici:
                 this.runMantraPrecetti();
                 break;
-            case FLAG_PRECETTI_COSMICI_SINTETICI:
+            case PrecettiCosmiciSintetici:
                 this.runMantraPrecettiSintetici();
                 break;
         }
@@ -488,7 +489,20 @@ public class MantraCoreRunner {
                 EN_TYPE = MantraRunType.NORMAL;
             }
 
-            MantraCoreRunner mantras = new MantraCoreRunner();
+            EnMantraInvocationType switchParam = null;
+            if (args.length>0)  {
+                switchParam = null;
+                if ( MantraRunType.exists(args[0]) ) {
+                    if ( args.length>1 )
+                        switchParam = EnMantraInvocationType.valueOf(args[1]);
+                    else
+                        switchParam =null;
+                } else {
+                    switchParam = EnMantraInvocationType.valueOf(args[0]);
+                }
+            }
+
+            MantraCoreRunner mantras = new MantraCoreRunner(switchParam);
 
             mantras.speak();
 
