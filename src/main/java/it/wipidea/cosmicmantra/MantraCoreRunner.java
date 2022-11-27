@@ -255,8 +255,8 @@ public class MantraCoreRunner {
         	//test = System.getenv("=Z:");
             test = System.getenv("=Z:");
             if (test==null) {
-                //test = "Z:/tmp/mycosmicmantra/PrecettiCosmiciSintetici";
-                test = "Z:/tmp/mycosmicmantra/Angels";
+                test = "Z:/tmp/mycosmicmantra/PrecettiCosmiciSintetici";
+                //test = "Z:/tmp/mycosmicmantra/Angels";
             }
             System.out.printf("CURRENT DIR is [%s]\n", test);
         	/*
