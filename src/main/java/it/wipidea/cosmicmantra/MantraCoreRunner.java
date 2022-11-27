@@ -214,6 +214,7 @@ public class MantraCoreRunner {
 
     public void runMantraAngels() throws IOException, InterruptedException {
 
+        this.addTask(new MyCosmicMantraCore("/AngeloCustodeInvocation_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/ArchangelInvocationSanMiguel_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/ArchangelInvocationJOFIEL_Configuration.properties"));
 
@@ -254,7 +255,8 @@ public class MantraCoreRunner {
         	//test = System.getenv("=Z:");
             test = System.getenv("=Z:");
             if (test==null) {
-                test = "Z:/tmp/mycosmicmantra/PrecettiCosmiciSintetici";
+                //test = "Z:/tmp/mycosmicmantra/PrecettiCosmiciSintetici";
+                test = "Z:/tmp/mycosmicmantra/Angels";
             }
             System.out.printf("CURRENT DIR is [%s]\n", test);
         	/*
