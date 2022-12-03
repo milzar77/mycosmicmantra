@@ -2,7 +2,6 @@ package it.wipidea.cosmicmantra.controller;
 
 import it.wipidea.cosmicmantra.core.EnMantraConstants;
 import it.wipidea.cosmicmantra.core.MantraChannel;
-import it.wipidea.cosmicmantra.core.MyCosmicMantraCore;
 import it.wipidea.cosmicmantra.core.objects.MantraWords;
 
 import java.io.File;
@@ -100,7 +99,8 @@ public final class MantraSingleController implements ISingleController {
      */
     @Override
     public void setupChannel() {
-        mantraChannel = new MantraChannel(this);
+        //TODO:FIXME: adeguare a nuova classe
+        // mantraChannel = new MantraChannel(this);
     }
 
     /**
