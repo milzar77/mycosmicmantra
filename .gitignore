@@ -2,3 +2,6 @@ target/*/*
 **/target/*/*
 target
 **/*.class
+tmp
+tmp/*/*
+**/tmp/*/*
