@@ -234,76 +234,13 @@ public class MantraCoreRunner {
 
     }
 
-    public EnMantraInvocationType detectSetting() {
-
-
-        java.util.Map map =  System.getenv();
-
-        System.out.println("===ENV===");
-//        System.out.println(map);
-        for (Object o : map.keySet()) {
-            System.out.println(String.valueOf(o) + ": "  + map.get(o));
-        }
-        System.out.println("---ENV---");
-
-
-
-        String test = System.getenv("PWD");
-        if (test==null) {
-        	System.out.println("Hello World! You Are Running Cosmic Mantra from Within A WINDOWS");
-        	
-        	//test = System.getenv("=Z:");
-            test = System.getenv("=Z:");
-            if (test==null) {
-                test = "Z:/tmp/mycosmicmantra/PrecettiCosmiciSintetici";
-                //test = "Z:/tmp/mycosmicmantra/Angels";
-            }
-            System.out.printf("CURRENT DIR is [%s]\n", test);
-        	/*
-        	System.exit(1);
-        	return FLAG_ALL;
-        	*/
-        } else {
-                System.out.printf("PWD is [%s]\n", test);
-        }
-        File fTest = new File(test);
-        if (fTest.exists() && fTest.isDirectory()) {
-            ;//System.out.println("CHECKING IF THIS IS THE LAST ELEMENT OF DIR PATH: "+fTest.getName());
-        } else {
-            System.exit(1);
-        }
-
-        String arg = fTest.getName();
-
-        if (arg.equals("Secret")) {
-            return EnMantraInvocationType.Secret;
-        } else if (arg.equals("Cosmic")) {
-            return EnMantraInvocationType.Cosmic;
-        } else if (arg.equals("Christian")) {
-            return EnMantraInvocationType.Christian;
-        } else if (arg.equals("Bible")) {
-            return EnMantraInvocationType.Bible;
-        } else if (arg.equals("Latin")) {
-            return EnMantraInvocationType.Latin;
-        } else if (arg.equals("Angels")) {
-            return EnMantraInvocationType.Angels;
-        } else if (arg.equals("PrecettiCosmici")) {
-            return EnMantraInvocationType.PrecettiCosmici;
-        } else if (arg.equals("PrecettiCosmiciSintetici")) {
-            return EnMantraInvocationType.PrecettiCosmiciSintetici;
-        } else if (arg.equals("playground")) {
-            return EnMantraInvocationType.Test;
-        } else {
-            return EnMantraInvocationType.All;
-        }
-    }
 
     public static HashMap<Long, String> elenco_numeri_primi = MantraSingularityDetector.primesHash;
 
     public MantraCoreRunner(EnMantraInvocationType MYSWITCH) throws IOException, InterruptedException {
 
         if(MYSWITCH==null)
-            MYSWITCH = detectSetting();
+            MYSWITCH = MantraFileUtil.detectSetting();
 
         switch (MYSWITCH) {
             case Test:
@@ -523,7 +460,23 @@ public class MantraCoreRunner {
             throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } finally {
+            System.out.println( "toBinary: " + toBinary(151) );
         }
+    }
+
+    /*
+    *  TODO: Metodo da riportare nella libreria FVLIB
+    */
+    private static StringBuilder toBinary(int decimal) {
+        StringBuilder binary = new StringBuilder();
+        while (decimal != 0) {
+            String mod = String.valueOf(decimal % 2);
+            binary.append(mod);
+// Code A
+            decimal /= 2;
+        }
+        return binary.reverse();
     }
 
     private void setupStats() {
