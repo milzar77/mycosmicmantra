@@ -198,6 +198,7 @@ public class MantraCoreRunner {
     public void runMantraChristian() throws IOException, InterruptedException {
         this.addTask(new MyCosmicMantraCore("/Osanna_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/InvocazioneCristo_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/PreghieraGesù_Configuration.properties"));
     }
 
     public void runMantraBible() throws IOException, InterruptedException {
