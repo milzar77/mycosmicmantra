@@ -214,9 +214,10 @@ public class MantraCoreRunner {
 
     public void runMantraAngels() throws IOException, InterruptedException {
 
-        this.addTask(new MyCosmicMantraCore("/AngeloCustodeInvocation_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/AngeloCustodeInvocation_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/ArchangelInvocationSanMiguel_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/ArchangelInvocationJOFIEL_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/PreghieraInvocazioneHAAIAH_Configuration.properties"));
+        //this.addTask(new MyCosmicMantraCore("/ArchangelInvocationJOFIEL_Configuration.properties"));
 
     }
 
