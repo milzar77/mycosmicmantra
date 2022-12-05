@@ -1,8 +1,7 @@
 package it.wipidea.cosmicmantra.core;
 
 import it.wipidea.cosmicmantra.MantraCoreRunner;
-import it.wipidea.cosmicmantra.gui.MantraFX;
-import it.wipidea.cosmicmantra.gui.MantraFrame;
+import it.wipidea.cosmicmantra.controller.AMainController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,10 +54,10 @@ public class MantraChannelManager {
             MantraChannel mch = channelList.get(cnt);
             try {
                 //TODO: da attivare temporizzazione in base a durata del mantra, mantenere comunque anche intervallo fissato
-                if (mch.mantraInstance.MANTRA_INTERVAL_PRAYER==null)
+                if (mch.mantraSingleControllerInstance.MANTRA_INTERVAL_PRAYER==null)
                     Thread.sleep(7000L );
                 else
-                    Thread.sleep( mch.mantraInstance.MANTRA_INTERVAL_PRAYER );
+                    Thread.sleep( mch.mantraSingleControllerInstance.MANTRA_INTERVAL_PRAYER );
 
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
@@ -120,7 +119,7 @@ public class MantraChannelManager {
         Double wWin = screenSize.getWidth();
         Double hWin = screenSize.getHeight();
 
-        MantraCoreRunner.windowHook.setState(JFrame.ICONIFIED);
+        AMainController.getWindowHook().setState(JFrame.ICONIFIED);
 
         //Integer lastX = 0;
         //Integer lastY = 0;

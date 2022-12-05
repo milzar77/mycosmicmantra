@@ -4,9 +4,11 @@ import it.wipidea.cosmicmantra.EnMantraInvocationType;
 import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.MantraRunType;
 import it.wipidea.cosmicmantra.core.EnMantraConstants;
-import it.wipidea.cosmicmantra.core.MyCosmicMantraCore;
+import it.wipidea.cosmicmantra.core.MantraChannelManager;
+import it.wipidea.cosmicmantra.gui.MyJFrame;
 import it.wipidea.cosmicmantra.utils.MantraFileUtil;
 
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -14,10 +16,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class MantraMainController {
+public class MantraMainController extends AMainController {
 
 
 /*
@@ -52,14 +56,12 @@ public class MantraMainController {
 
     public static boolean IS_TRANSLUCENCY_SUPPORTED;
 
-    public static MantraRunType EN_TYPE = null;
-
     public static Vector<Object[]> runners = new Vector<>();
     public static List<Runnable> callableTasks = new ArrayList<>();
 
     public static ExecutorService executorService;
 
-    public Runnable createTask(MyCosmicMantraCore my) {
+    public Runnable createTask(MantraSingleController my) {
         Runnable callableTask = () -> {
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
@@ -71,23 +73,29 @@ public class MantraMainController {
         return callableTask;
     }
 
-    public void addTask(MyCosmicMantraCore my) {
+    public void addTask(MantraSingleController my) {
         callableTasks.add(this.createTask(my));
     }
 
-    protected MantraSingleController createMantraSingleController(final String configurationFileName) {
+    protected MantraSingleController createMantraSingleController(final String configurationFileName)  throws InterruptedException, IOException {
         MantraSingleController mantraSingleController = new MantraSingleController(configurationFileName);
         return mantraSingleController;
     }
-    public MantraMainController(EnMantraInvocationType mantraSwitch) {
+    public MantraMainController(EnMantraInvocationType mantraSwitch)  throws InterruptedException, IOException {
         logger.finest( String.format("Constructing [%s] instance...", MantraMainController.class.getSimpleName()) );
+
+
+        MantraSingleController msc = null;
 
         if(mantraSwitch==null)
             mantraSwitch = MantraFileUtil.detectSetting();
 
+        logger.info("mantraSwitch: "  + mantraSwitch);
+
         switch (mantraSwitch) {
             case Test:
-                this.createMantraSingleController("/mantras/AngeloCustodeInvocation_Configuration.properties");
+                msc = this.createMantraSingleController("/mantras/AngeloCustodeInvocation_Configuration.properties");
+                this.addTask(msc);
                 break;
             case All:
                 /*
@@ -122,12 +130,106 @@ public class MantraMainController {
                 break;
             case PrecettiCosmiciSintetici:
                 //this.runMantraPrecettiSintetici();
-                this.createMantraSingleController("/mantras/EptalogoCosmicoSintetico_Configuration.properties");
+                msc = this.createMantraSingleController("/mantras/EptalogoCosmicoSintetico_Configuration.properties");
+                this.addTask(msc);
                 break;
         }
 
     }
 
+    public void startAppExecutor(MantraRunType en) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, InterruptedException {
+
+        executorService =
+                new ThreadPoolExecutor(callableTasks.size(), callableTasks.size(), 0L, TimeUnit.MILLISECONDS,
+                        new LinkedBlockingQueue<Runnable>());
+
+        //System.out.printf("callableTasks size: %s\n", callableTasks.size());
+
+        //List<Future<>> futures = executorService.invokeAll(callableTasks);
+
+        for (Runnable r : callableTasks) {
+            logger.info( String.format("Executing callableTask: %s\n", r.toString()) );
+            executorService.execute(r);
+        }
+
+        /*SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {*/
+        //System.out.println("==> updateMantraDesktopPosition HERE");
+        if (en == MantraRunType.ARLEQUIN) {
+            MantraChannelManager.updateMantraDesktopPosition();
+            MantraChannelManager.updateMantraDesktopArlequinSequence();
+        } else if (en == MantraRunType.MONOSEQ) {
+
+        } else if (en == MantraRunType.SCROOGE) {
+            MantraChannelManager.updateMantraDesktopPosition();
+            MantraChannelManager.updateMantraDesktopScroogeSequence();
+            //FIXME: never reached because call above run recursively, to detach
+//                    MantraFX.startFairyLights();
+        } else if (en == MantraRunType.CONSOLE) {
+            //MantraChannelManager.updateMantraDesktopPosition();
+            //MantraChannelManager.updateMantraDesktopScroogeSequence();
+            // TODO: run only in console mode
+            MantraChannelManager.updateMantraDesktopPosition();
+        } else {
+            MantraChannelManager.updateMantraDesktopPosition();
+        }
+
+        //updateMantraDesktopPosition
+            /*}
+        });*/
+
+    }
+
+    private void setupStats() {
+
+
+        /*MyJFrame jf = new MyJFrame("Mantra Runner Stats", STATS);
+
+        windowHook = jf;*/
+
+        Long waitForStats = 2000L;
+
+        Thread tStats = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                while (!AMainController.stopRunning) {
+                    //System.out.printf("Writing current stats every %s millis!\n", waitForStats);
+                    AMainController.writeStats();
+                    try {
+                        sleep(waitForStats);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+                System.out.println("END OF current stats!");
+            }
+        };
+
+        Thread tExit = new Thread() {
+            @Override
+            public void run() {
+                super.run();
+                AMainController.stopRunning = true;
+                try {
+                    sleep(waitForStats+200L);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                System.out.println("Writing final stats!");
+            }
+        };
+
+        tStats.start();
+
+        Runtime.getRuntime().addShutdownHook(tExit);
+
+        windowHook.getContentPane().add(new JPanel());
+        windowHook.pack();
+        windowHook.setVisible(true);
+
+    }
 
     public static void main(String[] args) {
 
@@ -180,8 +282,10 @@ public class MantraMainController {
             //mantras.speak();
 
             if (EN_TYPE != MantraRunType.CONSOLE) {
-                //FIXME: mantraMainController.setupStats();
-                //FIXME: mantraMainController.startAppExecutor(EN_TYPE);
+                //FIXME:
+                mantraMainController.setupStats();
+                //FIXME:
+                mantraMainController.startAppExecutor(EN_TYPE);
             }
 
         } catch (Exception e) {
