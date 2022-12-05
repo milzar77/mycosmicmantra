@@ -231,8 +231,8 @@ public class MantraCoreRunner {
 
     public void runMantraPrecettiSintetici() throws IOException, InterruptedException {
 
-        this.addTask(new MyCosmicMantraCore("/EptalogoCosmicoSintetico_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/EptalogoCristicoSintetico_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/EptalogoCosmicoSintetico_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/EptalogoCristicoSintetico_Configuration.properties"));
 
     }
 
