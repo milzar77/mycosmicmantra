@@ -1,6 +1,7 @@
 package it.wipidea.cosmicmantra.core;
 
 
+import it.wipidea.cosmicmantra.controller.ASingleController;
 import it.wipidea.cosmicmantra.gui.MantraFX;
 import it.wipidea.cosmicmantra.gui.MantraFrame;
 import it.wipidea.cosmicmantra.core.objects.MantraWord;
@@ -14,10 +15,10 @@ public class MantraChannel {
 
     public MantraFrame mantraWindow;
 
-    public MyCosmicMantraCore mantraInstance;
+    public ASingleController mantraSingleControllerInstance;
 
-    public MantraChannel(MyCosmicMantraCore myCosmicMantraCore) {
-        mantraInstance = myCosmicMantraCore;
+    public MantraChannel(ASingleController aSingleController) {
+        mantraSingleControllerInstance = aSingleController;
     }
 
     public void initMantraChannel(String fileName, Vector<MantraWord> vMantraWords, Integer limit_for_mantra_keyword, long mantra_interval_keyword) {
@@ -25,11 +26,11 @@ public class MantraChannel {
         //mantraWindow = new MantraDrawerGUI(fileName, vMantraLines, limit_for_mantra_keyword, mantra_interval_keyword);
         mantraWindow = new MantraFrame(fileName, vMantraWords, limit_for_mantra_keyword, mantra_interval_keyword);
 
-        mantraWindow.setBg( mantraInstance.PROPS.getProperty("BG", "155,0,155") );
+        mantraWindow.setBg( mantraSingleControllerInstance.PROPS.getProperty("BG", "155,0,155") );
         //mantraWindow.setFg( mantraInstance.PROPS.getProperty("FG", "30,0,30") );
         mantraWindow.setFg( "0,255,255" );
 
-        mantraWindow.canvasBuffer.setBg( mantraInstance.PROPS.getProperty("BG", "155,0,155") );
+        mantraWindow.canvasBuffer.setBg( mantraSingleControllerInstance.PROPS.getProperty("BG", "155,0,155") );
         //mantraWindow.canvasBuffer.setFg( mantraInstance.PROPS.getProperty("FG", "30,0,30") );
         mantraWindow.canvasBuffer.setFg( "255,255,0" );
         mantraWindow.canvasBuffer.posXBuffer = 20;//mantraWindow.posXBuffer;
@@ -43,12 +44,12 @@ public class MantraChannel {
         if (true) {
             //LOG CAOS: System.out.println(message);
         }
-        if (mantraInstance.PROPS.containsKey("dontReadBackAgain")) {
-            if ( mantraInstance.PROPS.getProperty("dontReadBackAgain").equals("bySingleStep") ) {
-                System.out.println("ByStep READ");
+        if (mantraSingleControllerInstance.PROPS.containsKey("dontReadBackAgain")) {
+            if ( mantraSingleControllerInstance.PROPS.getProperty("dontReadBackAgain").equals("bySingleStep") ) {
+                System.out.printf("ByStep READ: %s\n", row);
                 mantraWindow.communicateMessage2(row, limit_for_mantra_keyword, mw);
-            } else if ( mantraInstance.PROPS.getProperty("dontReadBackAgain").equals("byLimitedStep") ) {
-                System.out.println("NOT_ByStep READ");
+            } else if ( mantraSingleControllerInstance.PROPS.getProperty("dontReadBackAgain").equals("byLimitedStep") ) {
+                System.out.printf("NOT_ByStep READ: %s\n", row);
                 mantraWindow.canvasBuffer = null;
                 mantraWindow.communicateMessage3(row, limit_for_mantra_keyword, mw);
             } else {

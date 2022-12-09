@@ -3,6 +3,8 @@ package it.wipidea.cosmicmantra;
 
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
+import it.wipidea.cosmicmantra.controller.AMainController;
+import it.wipidea.cosmicmantra.controller.IMainController;
 import it.wipidea.cosmicmantra.core.MantraChannelManager;
 import it.wipidea.cosmicmantra.core.MantraSingularityDetector;
 import it.wipidea.cosmicmantra.core.MyCosmicMantraCore;
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.*;
 
-public class MantraCoreRunner {
+public class MantraCoreRunner extends AMainController {
 
     public static final String STATS_GLOBAL_PATH = "tmp/stats-global.csv";
 
@@ -330,7 +332,7 @@ public class MantraCoreRunner {
 
     }
 
-    private static void writeStats() {
+    protected static void writeStats() {
 
         //STATS
         //STATS.put(STAT_KEY_TOTALS, 0L);
@@ -494,7 +496,7 @@ public class MantraCoreRunner {
             @Override
             public void run() {
                 super.run();
-                while (!MantraCoreRunner.stopRunning) {
+                while (!AMainController.stopRunning) {
                     //System.out.printf("Writing current stats every %s millis!\n", waitForStats);
                     MantraCoreRunner.writeStats();
                     try {

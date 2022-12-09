@@ -1,6 +1,7 @@
 package it.wipidea.cosmicmantra.gui;
 
 import it.wipidea.cosmicmantra.MantraCoreRunner;
+import it.wipidea.cosmicmantra.controller.AMainController;
 import it.wipidea.cosmicmantra.core.MyKeyChecker;
 import it.wipidea.cosmicmantra.utils.MantraUtil;
 import it.wipidea.cosmicmantra.core.objects.MantraWord;
@@ -77,7 +78,7 @@ public class MantraFrame extends JFrame {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }*/
-                if (MantraCoreRunner.EN_TYPE.isValid()) {
+                if (AMainController.EN_TYPE.isValid()) {
                     MantraFrame.this.setupWindowShape();
 //FIXME:
                     MantraFrame.this.setupWindowOpacity();
@@ -172,10 +173,12 @@ public class MantraFrame extends JFrame {
             public void run() {
                 super.run();
                 while (true && canvasBuffer!=null) {
-                    if (canvasBuffer.isValid())
+                    if (canvasBuffer.isValid()) {
+                        //FIXME: canvasBuffer.posYBuffer = posYBuffer;
                         canvasBuffer.repaint();
-                    else
+                    } else {
                         System.out.println("Canvas Buffer Not Yet Ready!");
+                    }
                     try {
                         sleep(50L);
                     } catch (InterruptedException e) {
@@ -288,7 +291,10 @@ public class MantraFrame extends JFrame {
             posYBuffer = /*MARGIN_Y + */posY;
         }
 
+        System.out.printf("ByStep READ POSY: %s\n", posY);
+
         //resetMyBuffer=true;
+        resetMyBuffer= row == rows;
         try {
             Thread.sleep(INTERVAL_KEYWORD);
         } catch (InterruptedException e) {
@@ -322,6 +328,8 @@ public class MantraFrame extends JFrame {
             posXBuffer = MARGIN_X;
             posYBuffer = /*MARGIN_Y + */posY;
         }
+
+        System.out.printf("NOT_ByStep READ POSY: %s\n", posY);
 
         resetMyBuffer= row == rows;
         //if (resetMyBuffer) System.out.printf("RESETTING BUFFER [%s] = %s\n", sentenceBuffer, resetMyBuffer);

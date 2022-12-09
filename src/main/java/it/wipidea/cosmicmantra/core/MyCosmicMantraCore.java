@@ -2,6 +2,8 @@ package it.wipidea.cosmicmantra.core;
 
 import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.MantraRunType;
+import it.wipidea.cosmicmantra.controller.ASingleController;
+import it.wipidea.cosmicmantra.controller.ISingleController;
 import it.wipidea.cosmicmantra.core.objects.MantraWord;
 import it.wipidea.cosmicmantra.core.objects.MantraWords;
 
@@ -17,26 +19,10 @@ import java.util.ResourceBundle;
  * TODO: aggiungere code di accodamento numeri primi in base a flusso canale, tipo elenco di tutti i numeri primi rilevati/incontrati di mantra cosmic etc
  */
 
-public class MyCosmicMantraCore {
-
-    public Long MANTRA_INTERVAL_KEYWORD;
-    public Long MANTRA_INTERVAL_PRAYER;
-    public Integer LIMIT_FOR_MANTRA_KEYWORD;
-
-    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_SWE = "swedish", LANG_CHI = "chinese", LANG_HIN = "hindi";
-
-    private String keywordSep = ",";
-
-    protected MantraChannel mantraChannel;
-
-    public MantraWords myMantraKeywords;
-
-    //public Vector<String> vMantraLines;
-
-    public String fileNamePath;
+public class MyCosmicMantraCore extends ASingleController {
 
     private ResourceBundle RB;
-    public Properties PROPS;
+    //public Properties PROPS;
     //private MantraPanelUI window;
 
 
@@ -62,30 +48,16 @@ public class MyCosmicMantraCore {
         System.out.printf("==> Total keywords in action: %s for [%s]\n", LIMIT_FOR_MANTRA_KEYWORD, fileName);
     }
 
-    private void setupChannel() {
+    public void setupChannel() {
         mantraChannel = new MantraChannel(this);
     }
 
     public MyCosmicMantraCore(String fileName) throws InterruptedException, IOException {
-        //RB = ResourceBundle.getBundle("MantraConfiguration" );
-        this.fileNamePath = fileName;
-        this.prepareMantra(fileName);
-        this.setupChannel();
-
-        //vMantraLines = new Vector<String>();
-
-        //window = new MantraPanelUI(vMantraLines, LIMIT_FOR_MANTRA_KEYWORD, MANTRA_INTERVAL_KEYWORD);
-
-        this.loadMantra();
-        /*for (MantraWord mw : this.myMantraKeywords.vector) {
-            vMantraLines.add(mw.mantraKey);
-        }*/
-        mantraChannel.initMantraChannel(fileName, this.myMantraKeywords.vector, LIMIT_FOR_MANTRA_KEYWORD, MANTRA_INTERVAL_KEYWORD);
-        //window = new MantraPanelUI(fileName, vMantraLines, LIMIT_FOR_MANTRA_KEYWORD, MANTRA_INTERVAL_KEYWORD);
+        super(fileName);
     }
 
 
-    protected void loadMantra() {
+    public void loadMantra() {
         if ( PROPS.getProperty("mantra.prayer.ita") == null ) {
             System.out.println("launching prayer DEFAULT...");
             this.loadMantraPeaceHarmonyProsperity();
@@ -94,7 +66,7 @@ public class MyCosmicMantraCore {
         }
     }
 
-    protected void loadMantraConfigured() {
+    public void loadMantraConfigured() {
 
         this.myMantraKeywords = new MantraWords(this.fileNamePath );
 
