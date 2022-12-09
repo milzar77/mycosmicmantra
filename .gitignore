@@ -2,6 +2,7 @@ target/*/*
 **/target/*/*
 target
 **/*.class
+**/target/*/*.properties
 tmp
 tmp/*/*
 **/tmp/*/*
