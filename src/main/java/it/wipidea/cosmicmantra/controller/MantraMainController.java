@@ -132,6 +132,8 @@ public class MantraMainController extends AMainController {
                 //this.runMantraPrecettiSintetici();
                 msc = this.createMantraSingleController("/mantras/EptalogoCosmicoSintetico_Configuration.properties");
                 this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/EptalogoCristicoSintetico_Configuration.properties");
+                this.addTask(msc);
                 break;
         }
 
