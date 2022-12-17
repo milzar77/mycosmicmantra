@@ -346,7 +346,7 @@ public class MantraCoreRunner extends AMainController {
 
     }
 
-    //public static MantraRunType EN_TYPE = null;
+    //  public static MantraRunType EN_TYPE = null;
 
     public static boolean isTranslucencySupported;
 
