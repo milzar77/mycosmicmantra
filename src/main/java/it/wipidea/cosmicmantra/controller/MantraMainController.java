@@ -124,6 +124,12 @@ public class MantraMainController extends AMainController {
                 break;
             case Angels:
                 //this.runMantraAngels();
+                msc = this.createMantraSingleController("/mantras/AngeloCustodeInvocation_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/PreghieraInvocazioneHAAIAH_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/ArchangelInvocationSanMiguel_Configuration.properties");
+                this.addTask(msc);
                 break;
             case PrecettiCosmici:
                 //this.runMantraPrecetti();
