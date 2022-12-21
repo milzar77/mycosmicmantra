@@ -91,7 +91,7 @@ public final class MantraFileUtil {
             LOGGER.info("Hello World! You Are Running Cosmic Mantra from Within A WINDOWS");
 
             //test = System.getenv("=Z:");
-            test = System.getenv("=Z:");
+            test = System.getenv("=W:");
             if (test==null) {
                 test = "/tmp/mycosmicmantra/PrecettiCosmiciSintetici";
                 //test = "Z:/tmp/mycosmicmantra/Angels";
