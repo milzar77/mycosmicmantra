@@ -4,7 +4,6 @@ package it.wipidea.cosmicmantra;
 import com.sun.speech.freetts.Voice;
 import com.sun.speech.freetts.VoiceManager;
 import it.wipidea.cosmicmantra.controller.AMainController;
-import it.wipidea.cosmicmantra.controller.IMainController;
 import it.wipidea.cosmicmantra.core.MantraChannelManager;
 import it.wipidea.cosmicmantra.core.MantraSingularityDetector;
 import it.wipidea.cosmicmantra.core.MyCosmicMantraCore;
@@ -149,77 +148,77 @@ public class MantraCoreRunner extends AMainController {
     }
 
     public void runMantraTest1() throws IOException, InterruptedException {
-        this.addTask(new MyCosmicMantraCore("/MyCosmicMantra_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/BluesBrotherContact_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/MyCosmicMantra_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/BluesBrotherContact_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/HopeNeverDie_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/SadhGuruChant_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/WaitingMessiah_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/TheMindIsAMine_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/WaitingMessiah_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/TheMindIsAMine_Configuration.properties"));
 
     }
 
     public void runMantraTest2() throws IOException, InterruptedException {
-        this.addTask(new MyCosmicMantraCore("/MyCosmicMantra_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/BluesBrotherContact_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/MyCosmicMantra_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/BluesBrotherContact_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/HopeNeverDie_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/SadhGuruChant_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/WaitingMessiah_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/TheMindIsAMine_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/WaitingMessiah_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/TheMindIsAMine_Configuration.properties"));
 
-        this.addTask(new MyCosmicMantraCore("/Osanna_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/InvocazioneCristo_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/Osanna_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/InvocazioneCristo_Configuration.properties"));
 
     }
 
     public void runMantraTest999() throws IOException, InterruptedException {
-        this.addTask(new MyCosmicMantraCore("/MyCosmicMantra_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/BluesBrotherContact_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/MyCosmicMantra_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/BluesBrotherContact_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/HopeNeverDie_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/SadhGuruChant_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/WaitingMessiah_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/TheMindIsAMine_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/WaitingMessiah_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/TheMindIsAMine_Configuration.properties"));
 
-        this.addTask(new MyCosmicMantraCore("/Osanna_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/InvocazioneCristo_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/Osanna_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/InvocazioneCristo_Configuration.properties"));
 
-        this.addTask(new MyCosmicMantraCore("/Decalogo_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/SalveReginaConfiguration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/Decalogo_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/SalveReginaConfiguration.properties"));
     }
     public void runMantraSecret() throws IOException, InterruptedException {
-        this.addTask(new MyCosmicMantraCore("/MyCosmicMantra_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/MyCosmicMantra_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/HopeNeverDie_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/SadhGuruChant_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/TheMindIsAMine_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/TheMindIsAMine_Configuration.properties"));
     }
 
     public void runMantraCosmic() throws IOException, InterruptedException {
-        this.addTask(new MyCosmicMantraCore("/BluesBrotherContact_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/WaitingMessiah_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/BluesBrotherContact_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/WaitingMessiah_Configuration.properties"));
     }
 
     public void runMantraChristian() throws IOException, InterruptedException {
-        this.addTask(new MyCosmicMantraCore("/Osanna_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/InvocazioneCristo_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/Osanna_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/InvocazioneCristo_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/mantras/PreghieraGesù_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/mantras/PreghieraLambertNoben_Configuration.properties"));
     }
 
     public void runMantraBible() throws IOException, InterruptedException {
-        this.addTask(new MyCosmicMantraCore("/Decalogo_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/SalveReginaConfiguration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/Decalogo_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/SalveReginaConfiguration.properties"));
     }
 
     public void runMantraLatin() throws IOException, InterruptedException {
 
-        this.addTask(new MyCosmicMantraCore("/MSICS_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/IMSV_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/MSICS_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/IMSV_Configuration.properties"));
 
     }
 
     public void runMantraAngels() throws IOException, InterruptedException {
 
         this.addTask(new MyCosmicMantraCore("/mantras/AngeloCustodeInvocation_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/ArchangelInvocationSanMiguel_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/ArchangelInvocationSanMiguel_Configuration.properties"));
         this.addTask(new MyCosmicMantraCore("/mantras/PreghieraInvocazioneHAAIAH_Configuration.properties"));
         //this.addTask(new MyCosmicMantraCore("/ArchangelInvocationJOFIEL_Configuration.properties"));
 
@@ -227,8 +226,8 @@ public class MantraCoreRunner extends AMainController {
 
     public void runMantraPrecetti() throws IOException, InterruptedException {
 
-        this.addTask(new MyCosmicMantraCore("/EptalogoCosmico_Configuration.properties"));
-        this.addTask(new MyCosmicMantraCore("/EptalogoCristico_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/EptalogoCosmico_Configuration.properties"));
+        this.addTask(new MyCosmicMantraCore("/mantras/EptalogoCristico_Configuration.properties"));
 
     }
 

@@ -1,11 +1,10 @@
 package it.wipidea.cosmicmantra.controller;
 
 import it.wipidea.cosmicmantra.EnMantraInvocationType;
-import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.MantraRunType;
 import it.wipidea.cosmicmantra.core.EnMantraConstants;
 import it.wipidea.cosmicmantra.core.MantraChannelManager;
-import it.wipidea.cosmicmantra.gui.MyJFrame;
+import it.wipidea.cosmicmantra.core.MyCosmicMantraCore;
 import it.wipidea.cosmicmantra.utils.MantraFileUtil;
 
 import javax.swing.*;
@@ -109,18 +108,46 @@ public class MantraMainController extends AMainController {
                 break;
             case Secret:
                 //this.runMantraSecret();
+                msc = this.createMantraSingleController("/mantras/MyCosmicMantra_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/HopeNeverDie_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/SadhGuruChant_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/TheMindIsAMine_Configuration.properties");
+                this.addTask(msc);
                 break;
             case Cosmic:
                 //this.runMantraCosmic();
+                msc = this.createMantraSingleController("/mantras/BluesBrotherContact_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/WaitingMessiah_Configuration.properties");
+                this.addTask(msc);
                 break;
             case Christian:
                 //this.runMantraChristian();
+                msc = this.createMantraSingleController("/mantras/Osanna_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/InvocazioneCristo_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/PreghieraGesù_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/PreghieraLambertNoben_Configuration.properties");
+                this.addTask(msc);
                 break;
             case Bible:
                 //this.runMantraBible();
+                msc = this.createMantraSingleController("/mantras/Decalogo_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/SalveReginaConfiguration.properties");
+                this.addTask(msc);
                 break;
             case Latin:
                 //this.runMantraLatin();
+                msc = this.createMantraSingleController("/mantras/MSICS_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/IMSV_Configuration.properties");
+                this.addTask(msc);
                 break;
             case Angels:
                 //this.runMantraAngels();
@@ -128,11 +155,17 @@ public class MantraMainController extends AMainController {
                 this.addTask(msc);
                 msc = this.createMantraSingleController("/mantras/PreghieraInvocazioneHAAIAH_Configuration.properties");
                 this.addTask(msc);
-                msc = this.createMantraSingleController("/ArchangelInvocationSanMiguel_Configuration.properties");
+                msc = this.createMantraSingleController("/mantras/ArchangelInvocationSanMiguel_Configuration.properties");
                 this.addTask(msc);
+                /*msc = this.createMantraSingleController("/mantras/ArchangelInvocationJOFIEL_Configuration.properties");
+                this.addTask(msc);*/
                 break;
             case PrecettiCosmici:
                 //this.runMantraPrecetti();
+                msc = this.createMantraSingleController("/mantras/EptalogoCosmico_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/EptalogoCristico_Configuration.properties");
+                this.addTask(msc);
                 break;
             case PrecettiCosmiciSintetici:
                 //this.runMantraPrecettiSintetici();
