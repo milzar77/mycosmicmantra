@@ -149,6 +149,15 @@ public class MantraMainController extends AMainController {
                 msc = this.createMantraSingleController("/mantras/IMSV_Configuration.properties");
                 this.addTask(msc);
                 break;
+            case Islam:
+                //this.runMantraAngels();
+                msc = this.createMantraSingleController("/mantras/IslamInvocation_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/InshAllahInvocation_Configuration.properties");
+                this.addTask(msc);
+                /*msc = this.createMantraSingleController("/mantras/ArchangelInvocationJOFIEL_Configuration.properties");
+                this.addTask(msc);*/
+                break;
             case Angels:
                 //this.runMantraAngels();
                 msc = this.createMantraSingleController("/mantras/AngeloCustodeInvocation_Configuration.properties");
