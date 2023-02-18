@@ -1,5 +1,7 @@
 package it.wipidea.cosmicmantra.utils;
 
+import it.wipidea.cosmicmantra.controller.ASingleController;
+
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
@@ -237,8 +239,16 @@ public class MantraUtil {
     }
 
     public static void drawStringWithNewLine(Graphics g, String text, int x, int y) {
+        Font font = new Font(Font.MONOSPACED, Font.PLAIN, getDefaultFontSize());
+        g.setFont(font);
         for (String line : text.split("\n"))
             g.drawString(line, x, y += g.getFontMetrics().getHeight()+4);
+    }
+
+    public static Integer getDefaultFontSize() {
+        String sFntSize = ASingleController.PROPS.getOrDefault("FNT.SIZE", Integer.valueOf(16)).toString();
+        Integer iFntSize = Integer.parseInt(sFntSize.toString());
+        return iFntSize;
     }
 
 

@@ -30,7 +30,7 @@ public class MantraFrame extends JFrame {
 
     public int MARGIN_X = 20;//TODO:DOING:sto cercando di sistemare il margine per il posizionamento della scritta
     public int MARGIN_Y = 20;
-    private Font font = new Font(Font.MONOSPACED, Font.PLAIN, 16);
+    private Font font = new Font(Font.MONOSPACED, Font.PLAIN, MantraUtil.getDefaultFontSize());
 
     private BufferedImage img;// = new BufferedImage(UI_WIDTH, UI_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     private Graphics2D imgG2;// = img.createGraphics();
@@ -355,7 +355,7 @@ public class MantraFrame extends JFrame {
 
         g2d.setStroke(new BasicStroke(stroke));
         g2d.setColor(current);
-        g2d.setFont(font);
+        //g2d.setFont(font);
 
         //do the drawing here
         //g2d.drawLine(10, 10, 110, 110);

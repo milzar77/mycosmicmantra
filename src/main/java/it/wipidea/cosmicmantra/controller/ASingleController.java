@@ -24,7 +24,7 @@ public abstract class ASingleController implements ISingleController {
 
     public String fileNamePath;
 
-    public Properties PROPS;
+    public static Properties PROPS;
 
     public void prepareMantra(String fileName) {
         //FV: caricamento del file di configurazione del mantra corrente
