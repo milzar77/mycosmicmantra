@@ -21,7 +21,7 @@ public final class MantraSingleController extends ASingleController {
 
     private File configurationFile;
 
-    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_SWE = "swedish", LANG_CHI = "chinese", LANG_HIN = "hindi";
+    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_SWE = "swedish", LANG_CHI = "chinese", LANG_HIN = "hindi", LANG_SAN="sanscrito", LANG_YDD = "yddish", LANG_ARA = "arab";
 
     private String keywordSep = ",";
 
