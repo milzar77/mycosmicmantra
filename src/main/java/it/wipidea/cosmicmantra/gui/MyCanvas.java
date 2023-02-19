@@ -23,7 +23,7 @@ public class MyCanvas extends JPanel {
 
     private float strokeInterlaced = 1;
     private Color current = FG_COLOR;
-    private Font font = new Font(Font.MONOSPACED, Font.PLAIN, 16);
+    //private Font font = new Font(Font.MONOSPACED, Font.PLAIN, 16);
 
     private MantraFrame source;
 
@@ -76,7 +76,7 @@ public class MyCanvas extends JPanel {
 
         g2d.setStroke(new BasicStroke(stroke));
         g2d.setColor(current);
-        g2d.setFont(font);
+        //g2d.setFont(font);
 
         //do the drawing here
         //g2d.drawLine(10, 10, 110, 110);
@@ -85,7 +85,8 @@ public class MyCanvas extends JPanel {
         //int posY = cnt * TEXT_JUMP_Y;
 
         MantraUtil.drawStringWithNewLine(g2d, sentenceBuffer, posXBuffer, posYBuffer);//g
-        //OLD SAFE: g2d.drawString(sentenceBuffer, posXBuffer, posYBuffer);
+        //OLD SAFE:
+        //g2d.drawString(sentenceBuffer, posXBuffer, posYBuffer);
 
         /*
         if (this.getExtendedState()==JFrame.MAXIMIZED_BOTH)

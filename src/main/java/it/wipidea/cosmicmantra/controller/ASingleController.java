@@ -24,14 +24,19 @@ public abstract class ASingleController implements ISingleController {
 
     public String fileNamePath;
 
-    public static Properties PROPS;
+    public /*static*/ Properties PROPS = new Properties();
 
-    public void prepareMantra(String fileName) {
+    /*static {
         //FV: caricamento del file di configurazione del mantra corrente
         PROPS = new Properties();
+    }*/
+
+    public abstract void prepareMantra(String fileName);
+
+    /*public void prepareMantra(String fileName) {
         try {
             //PROPS.load( Object.class.getClass().getResource( System.getProperty("inputFile") ).openConnection().getInputStream() );
-            PROPS.load( this.getClass().getResource( fileName ).openConnection().getInputStream() );
+            PROPS.load( ASingleController.class.getResource( fileName ).openConnection().getInputStream() );
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -46,7 +51,7 @@ public abstract class ASingleController implements ISingleController {
             LIMIT_FOR_MANTRA_KEYWORD = PROPS.getProperty("mantra.prayer." + kLang).split(keywordSep).length;//FIX:utilizzare proprietà di configurazione separatore
         }
         System.out.printf("==> Total keywords in action: %s for [%s]\n", LIMIT_FOR_MANTRA_KEYWORD, fileName);
-    }
+    }*/
 
     public void setupChannel() {
         //TODO:FIXME: adeguare a nuova classe
@@ -56,6 +61,8 @@ public abstract class ASingleController implements ISingleController {
     public ASingleController(String fileName) throws InterruptedException, IOException {
         //RB = ResourceBundle.getBundle("MantraConfiguration" );
         this.fileNamePath = fileName;
+        MantraMainController.callableMantraSingleControllers.add(this);
+        //PROPS = new Properties();
         this.prepareMantra(fileName);
         this.setupChannel();
 
@@ -78,7 +85,7 @@ public abstract class ASingleController implements ISingleController {
         String[] mantraLangs = PROPS.getProperty("mantra.prayer.langs").split(",");
         for (String lang : mantraLangs) {
             System.out.println(lang+"="+ PROPS.getProperty("mantra.prayer."+lang.trim()) );
-            String[] mantraWords = PROPS.getProperty("mantra.prayer."+lang.trim()).split(keywordSep);
+            String[] mantraWords = PROPS.getProperty("mantra.prayer."+lang.trim()).split(/*keywordSep*/PROPS.getProperty("mantra.interval.separator"));
 
             for (String word : mantraWords) {
                 myMantraKeywords.addMantraDirective(lang, word.trim());

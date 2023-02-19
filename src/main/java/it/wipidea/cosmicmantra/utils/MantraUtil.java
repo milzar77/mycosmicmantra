@@ -1,6 +1,8 @@
 package it.wipidea.cosmicmantra.utils;
 
 import it.wipidea.cosmicmantra.controller.ASingleController;
+import it.wipidea.cosmicmantra.controller.MantraMainController;
+import it.wipidea.cosmicmantra.core.MantraChannelManager;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -239,14 +241,18 @@ public class MantraUtil {
     }
 
     public static void drawStringWithNewLine(Graphics g, String text, int x, int y) {
-        Font font = new Font(Font.MONOSPACED, Font.PLAIN, getDefaultFontSize());
+        Font font = new Font(Font.MONOSPACED, Font.PLAIN, MantraUtil.getDefaultFontSize());
         g.setFont(font);
-        for (String line : text.split("\n"))
-            g.drawString(line, x, y += g.getFontMetrics().getHeight()+4);
+        /*for (String line : text.split("\n"))
+            g.drawString(line, x, y += g.getFontMetrics().getHeight()+4);*/
+        g.drawString(text, x, y += g.getFontMetrics().getHeight()+4);
     }
 
     public static Integer getDefaultFontSize() {
-        String sFntSize = ASingleController.PROPS.getOrDefault("FNT.SIZE", Integer.valueOf(16)).toString();
+        //FIXME: sistemare indice istanza corrente
+        String sFntSize = MantraMainController.callableMantraSingleControllers.get(0).PROPS.getOrDefault("FNT.SIZE", Integer.valueOf(16)).toString();
+        //String sFntSize = ASingleController.PROPS.getOrDefault("FNT.SIZE", Integer.valueOf(16)).toString();
+        //String sFntSize = "35";//.PROPS.getOrDefault("FNT.SIZE", Integer.valueOf(16)).toString();
         Integer iFntSize = Integer.parseInt(sFntSize.toString());
         return iFntSize;
     }

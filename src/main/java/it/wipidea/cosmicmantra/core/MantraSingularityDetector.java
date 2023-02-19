@@ -1,6 +1,7 @@
 package it.wipidea.cosmicmantra.core;
 
-import it.wipidea.cosmicmantra.MantraCoreRunner;
+import it.wipidea.cosmicmantra.controller.AMainController;
+import it.wipidea.cosmicmantra.controller.ASingleController;
 import it.wipidea.cosmicmantra.utils.MantraUtil;
 
 import java.time.LocalDate;
@@ -60,22 +61,22 @@ public class MantraSingularityDetector {
                     "INSERIRE QUANTE MEDESIME OCCORRENZE TROVATE IN COMPLESSIVAMENTE");
 
             if (!"GLOBAL".equals(seedName)) {
-                Long currentTotalPrimesFor = (Long) MantraCoreRunner.STATS.getOrDefault(MantraCoreRunner.composeKeyForStat(MantraCoreRunner.STAT_KEY_TOTAL_PRIMES_FOR_INSTANCE, seedName), Long.valueOf("0"));
-                MantraCoreRunner.STATS.put(MantraCoreRunner.composeKeyForStat(MantraCoreRunner.STAT_KEY_TOTAL_PRIMES_FOR_INSTANCE, seedName), currentTotalPrimesFor+1);
+                Long currentTotalPrimesFor = (Long) AMainController.STATS.getOrDefault(AMainController.composeKeyForStat(AMainController.STAT_KEY_TOTAL_PRIMES_FOR_INSTANCE, seedName), Long.valueOf("0"));
+                AMainController.STATS.put(AMainController.composeKeyForStat(AMainController.STAT_KEY_TOTAL_PRIMES_FOR_INSTANCE, seedName), currentTotalPrimesFor+1);
             }
 
             //STAT_KEY_LAST1ST_PRIMENUM: da vedere se usare coda lifo pop stack etc
-            Long current1stPrime = (Long) MantraCoreRunner.STATS.getOrDefault(MantraCoreRunner.STAT_KEY_LAST1ST_PRIMENUM, Long.valueOf("0"));
+            Long current1stPrime = (Long) AMainController.STATS.getOrDefault(AMainController.STAT_KEY_LAST1ST_PRIMENUM, Long.valueOf("0"));
             if (current1stPrime<totalMantraApplied)
-                MantraCoreRunner.STATS.put(MantraCoreRunner.STAT_KEY_LAST1ST_PRIMENUM, totalMantraApplied);
+                AMainController.STATS.put(AMainController.STAT_KEY_LAST1ST_PRIMENUM, totalMantraApplied);
 
             //if (primesHash.contains(totalMantraApplied))
             if (primesHash.containsKey(totalMantraApplied))
                 return;
 
-            Long currentTotalPrimes = (Long) MantraCoreRunner.STATS.getOrDefault(MantraCoreRunner.STAT_KEY_TOTAL_PRIMENUMS, Long.valueOf("0"));
+            Long currentTotalPrimes = (Long) AMainController.STATS.getOrDefault(AMainController.STAT_KEY_TOTAL_PRIMENUMS, Long.valueOf("0"));
             if (currentTotalPrimes<totalMantraApplied)
-                MantraCoreRunner.STATS.put(MantraCoreRunner.STAT_KEY_TOTAL_PRIMENUMS, currentTotalPrimes+1);
+                AMainController.STATS.put(AMainController.STAT_KEY_TOTAL_PRIMENUMS, currentTotalPrimes+1);
 
 
 
@@ -84,7 +85,7 @@ public class MantraSingularityDetector {
             //if (primesHash.contains(totalMantraApplied))
             if (primesHash.containsKey(totalMantraApplied))
                 return;
-            MantraCoreRunner.scriviNumeroPrimo(totalMantraApplied);
+            AMainController.scriviNumeroPrimo(totalMantraApplied);
 
 
 

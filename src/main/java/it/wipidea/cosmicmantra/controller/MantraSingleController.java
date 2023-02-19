@@ -1,6 +1,5 @@
 package it.wipidea.cosmicmantra.controller;
 
-import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.core.EnMantraConstants;
 import it.wipidea.cosmicmantra.core.MantraChannel;
 import it.wipidea.cosmicmantra.core.MantraSingularityDetector;
@@ -50,6 +49,10 @@ public final class MantraSingleController extends ASingleController {
      */
     @Override
     public void prepareMantra(String configurationFileName) {
+
+        //FIXME: sistemare "super.prepareMantra" chiamate replicate più sotto nel metodo in override
+        //super.prepareMantra(configurationFileName);
+
         if (configurationFile==null)
             configurationFile = new File(configurationFileName);
 
@@ -57,7 +60,7 @@ public final class MantraSingleController extends ASingleController {
         logger.info( String.format("Reading mantra from file: [%s]", configurationFile.getAbsolutePath()) );
         logger.finest( String.format("Prepare mantra.") );
         //FV: caricamento del file di configurazione del mantra corrente
-        super.PROPS = new Properties();
+//        super.PROPS = new Properties();
         try {
             //PROPS.load( Object.class.getClass().getResource( System.getProperty("inputFile") ).openConnection().getInputStream() );
             String fileNameAsResource = configurationFile.getCanonicalPath().replace('\\','/');
@@ -117,12 +120,13 @@ public final class MantraSingleController extends ASingleController {
             this.go(this.myMantraKeywords, MANTRA_INTERVAL_KEYWORD);
             totalMantraApplied++;
 
-            Long currentTotal = (Long) MantraCoreRunner.STATS.getOrDefault(MantraCoreRunner.STAT_KEY_TOTALS, Long.valueOf("0"));
-            MantraCoreRunner.STATS.put(MantraCoreRunner.STAT_KEY_TOTALS, currentTotal + 1/*totalMantraApplied*/);
+            Long currentTotal = (Long) AMainController.STATS.getOrDefault(AMainController.STAT_KEY_TOTALS, Long.valueOf("0"));
+            AMainController.STATS.put(AMainController.STAT_KEY_TOTALS, currentTotal + 1/*totalMantraApplied*/);
 
-            if (!"GLOBAL".equals(this.fileNamePath)) {
-                MantraCoreRunner.STATS.put(MantraCoreRunner.composeKeyForStat(MantraCoreRunner.STAT_KEY_TOTALS_FOR_INSTANCE, this.fileNamePath), totalMantraApplied);
-            }
+            //FIXME:
+            /*if (!"GLOBAL".equals(this.fileNamePath)) {
+                AMainController.STATS.put(AMainController.composeKeyForStat(AMainController.STAT_KEY_TOTALS_FOR_INSTANCE, this.fileNamePath), totalMantraApplied);
+            }*/
 
             System.err.printf("[%s]:: Total mantra prayer applied: %s ::\n", this.fileNamePath, totalMantraApplied);
 

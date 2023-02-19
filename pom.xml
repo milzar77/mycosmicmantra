@@ -31,7 +31,8 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>it.wipidea.cosmicmantra.MantraCoreRunner</mainClass>
+                            <!--mainClass>it.wipidea.cosmicmantra.MantraCoreRunner</mainClass-->
+                            <mainClass>it.wipidea.cosmicmantra.controller.MantraMainController</mainClass>
                             <classpathPrefix>dependency-jars/</classpathPrefix>
                         </manifest>
                     </archive>

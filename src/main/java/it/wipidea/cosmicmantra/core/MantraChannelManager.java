@@ -1,6 +1,5 @@
 package it.wipidea.cosmicmantra.core;
 
-import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.controller.AMainController;
 
 import javax.swing.*;
@@ -12,7 +11,7 @@ public class MantraChannelManager {
     protected static final LinkedList<MantraChannel> channelList;
     private static final Integer MANTRA_WIN_MARGIN_X = 40;
     private static final Integer MANTRA_WIN_MARGIN_Y = 30;
-    public static MantraChannel previouseChannel;
+    public static MantraChannel previousChannel;
     public static MantraChannel activeChannel;
 
     static {
@@ -85,9 +84,9 @@ public class MantraChannelManager {
 
         for (MantraChannel mch : channelList) {
             if (activeChannel==null) {
-                previouseChannel = null;
+                previousChannel = null;
             } else {
-                previouseChannel = activeChannel;
+                previousChannel = activeChannel;
             }
             activeChannel = mch;
 

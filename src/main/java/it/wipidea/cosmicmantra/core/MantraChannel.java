@@ -47,7 +47,8 @@ public class MantraChannel {
         if (mantraSingleControllerInstance.PROPS.containsKey("dontReadBackAgain")) {
             if ( mantraSingleControllerInstance.PROPS.getProperty("dontReadBackAgain").equals("bySingleStep") ) {
                 System.out.printf("ByStep READ: %s\n", row);
-                mantraWindow.communicateMessage2(row, limit_for_mantra_keyword, mw);
+                for (String line : mw.mantraKey.split("\n"))
+                    mantraWindow.communicateMessage2(row, limit_for_mantra_keyword, line);
             } else if ( mantraSingleControllerInstance.PROPS.getProperty("dontReadBackAgain").equals("byLimitedStep") ) {
                 System.out.printf("NOT_ByStep READ: %s\n", row);
                 mantraWindow.canvasBuffer = null;

@@ -1,6 +1,5 @@
 package it.wipidea.cosmicmantra.gui;
 
-import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.core.MantraChannelManager;
 import it.wipidea.cosmicmantra.core.MantraCore;
 

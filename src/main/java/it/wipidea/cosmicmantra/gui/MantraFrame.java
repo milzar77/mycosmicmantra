@@ -1,6 +1,5 @@
 package it.wipidea.cosmicmantra.gui;
 
-import it.wipidea.cosmicmantra.MantraCoreRunner;
 import it.wipidea.cosmicmantra.controller.AMainController;
 import it.wipidea.cosmicmantra.core.MyKeyChecker;
 import it.wipidea.cosmicmantra.utils.MantraUtil;
@@ -30,7 +29,8 @@ public class MantraFrame extends JFrame {
 
     public int MARGIN_X = 20;//TODO:DOING:sto cercando di sistemare il margine per il posizionamento della scritta
     public int MARGIN_Y = 20;
-    private Font font = new Font(Font.MONOSPACED, Font.PLAIN, MantraUtil.getDefaultFontSize());
+    //FIXME:
+    private Font font;// = new Font(Font.MONOSPACED, Font.PLAIN, MantraUtil.getDefaultFontSize());
 
     private BufferedImage img;// = new BufferedImage(UI_WIDTH, UI_HEIGHT, BufferedImage.TYPE_INT_ARGB);
     private Graphics2D imgG2;// = img.createGraphics();
@@ -93,7 +93,7 @@ public class MantraFrame extends JFrame {
             public void run() {
 
                 // Set the window to 70% translucency, if supported.
-                if (MantraCoreRunner.isTranslucencySupported) {
+                if (AMainController.isTranslucencySupported) {
                     MantraFrame.this.setOpacity(0.75f);
                 }
 
@@ -116,26 +116,37 @@ public class MantraFrame extends JFrame {
 
     private void measureSentences() {
 
-        //font = new Font(Font.SERIF, Font.PLAIN, 30);
+        font = new Font(Font.SERIF, Font.PLAIN, MantraUtil.getDefaultFontSize());
         Double dX = 0D;
         //Double dY = 0D;
         TEXT_JUMP_Y = 10;
+        int currentLen = 1000;
         for (MantraWord sentence : sentences) {
             FontRenderContext fontRenderCtx = imgG2.getFontRenderContext();
-            Rectangle2D bounds = font.getStringBounds(sentence.mantraKey, fontRenderCtx);
-            //System.out.println("Bounds are " + bounds.getWidth() + " x " + bounds.getHeight());
-            if (dX < bounds.getWidth()) {
-                dX = MARGIN_X+bounds.getWidth();
+            int len = sentence.mantraKey.length();
+            if (len>=currentLen) {
+                Rectangle2D bounds = font.getStringBounds(sentence.mantraKey, fontRenderCtx);
+                //System.out.println("Bounds are " + bounds.getWidth() + " x " + bounds.getHeight());
+                if (dX < bounds.getWidth()) {
+                    dX = MARGIN_X + bounds.getWidth();
+                }
+                if (TEXT_JUMP_Y < bounds.getHeight()) {
+                    TEXT_JUMP_Y = /*MARGIN_Y+*/(int) bounds.getHeight() + 5;
+                    //System.out.printf("Text JUMP is %s\n", TEXT_JUMP_Y);
+                }
+                currentLen = len;
+            } else {
+                if (currentLen==1000)
+                    currentLen = len;
+                else if ( len >= currentLen )
+                    currentLen = len;
             }
-            if (TEXT_JUMP_Y < bounds.getHeight()) {
-                TEXT_JUMP_Y = /*MARGIN_Y+*/(int)bounds.getHeight()+5;
-                //System.out.printf("Text JUMP is %s\n", TEXT_JUMP_Y);
-            }
+
         }
         //dY = TEXT_JUMP_Y + MARGIN_Y
         System.out.println("MAX X="+dX);
         System.out.println("MAX Y="+ TEXT_JUMP_Y );
-        UI_WIDTH = MARGIN_X+dX.intValue();
+        UI_WIDTH = MARGIN_X+dX.intValue()+MARGIN_X;
         UI_HEIGHT = MARGIN_Y+(TEXT_JUMP_Y) * (LIMIT_KEYS+1);
         System.out.printf("Message [limited to %s, jump is %s] needs resizing @ %s x %s\n", LIMIT_KEYS, TEXT_JUMP_Y, UI_WIDTH, UI_HEIGHT);
 
@@ -143,7 +154,7 @@ public class MantraFrame extends JFrame {
 
     private void initPanel() {
 
-        this.setPreferredSize(new Dimension(UI_WIDTH,UI_HEIGHT));
+        this.setPreferredSize(new Dimension(UI_WIDTH+200,UI_HEIGHT));
         //this.setVisible(false);
 
 
@@ -266,7 +277,7 @@ public class MantraFrame extends JFrame {
     }
 
 
-    public void communicateMessage2(int row, long rows, MantraWord mw) {
+    public void communicateMessage2(int row, long rows, String mwSentence) {
 
         int last = JUMPS;
         int cnt = 0;
@@ -281,7 +292,7 @@ public class MantraFrame extends JFrame {
 
         int posY = row * TEXT_JUMP_Y;
 
-        sentenceBuffer = mw.mantraKey;
+        sentenceBuffer = mwSentence;//mw.mantraKey;
 
         if (this.getExtendedState()==JFrame.MAXIMIZED_BOTH) {
             posXBuffer = (wWin.intValue() / 3) + MARGIN_X;
@@ -366,6 +377,12 @@ public class MantraFrame extends JFrame {
         // imposto il controllo di visualizzazione della stella
         if ( showStar )
             MantraFX.getInstance(this.getName()).startFairyLights(g2d, this);
+
+        //FIXME: fixare dimensione font
+        /*
+        Font font = new Font(Font.MONOSPACED, Font.PLAIN, MantraUtil.getDefaultFontSize());
+        g2d.setFont(font);
+        */
 
         MantraUtil.drawStringWithNewLine(g2d, sentenceBuffer, posXBuffer, posYBuffer);//g
         //OLD SAFE: g2d.drawString(sentenceBuffer, posXBuffer, posYBuffer);

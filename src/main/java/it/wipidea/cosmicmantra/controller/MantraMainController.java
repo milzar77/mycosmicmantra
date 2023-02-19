@@ -4,7 +4,7 @@ import it.wipidea.cosmicmantra.EnMantraInvocationType;
 import it.wipidea.cosmicmantra.MantraRunType;
 import it.wipidea.cosmicmantra.core.EnMantraConstants;
 import it.wipidea.cosmicmantra.core.MantraChannelManager;
-import it.wipidea.cosmicmantra.core.MyCosmicMantraCore;
+
 import it.wipidea.cosmicmantra.utils.MantraFileUtil;
 
 import javax.swing.*;
@@ -57,6 +57,8 @@ public class MantraMainController extends AMainController {
 
     public static Vector<Object[]> runners = new Vector<>();
     public static List<Runnable> callableTasks = new ArrayList<>();
+
+    public static List<ASingleController> callableMantraSingleControllers = new ArrayList<>();
 
     public static ExecutorService executorService;
 
@@ -188,6 +190,8 @@ public class MantraMainController extends AMainController {
     }
 
     public void startAppExecutor(MantraRunType en) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, InterruptedException {
+
+        System.err.printf("callableTasks is [%s]\n", callableTasks);
 
         executorService =
                 new ThreadPoolExecutor(callableTasks.size(), callableTasks.size(), 0L, TimeUnit.MILLISECONDS,
@@ -328,6 +332,8 @@ public class MantraMainController extends AMainController {
 
             //MantraCoreRunner mantras = new MantraCoreRunner(switchParam);
             MantraMainController mantraMainController = new MantraMainController(switchParam);
+            System.err.printf("mantraMainController.callableTasks is [%s]\n", callableTasks);
+            System.err.printf("switchParam is [%s]\n", switchParam);
 
             //mantras.speak();
 

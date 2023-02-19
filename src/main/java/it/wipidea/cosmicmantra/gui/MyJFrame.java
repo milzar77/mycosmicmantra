@@ -1,6 +1,7 @@
 package it.wipidea.cosmicmantra.gui;
 
-import it.wipidea.cosmicmantra.MantraCoreRunner;
+
+import it.wipidea.cosmicmantra.controller.AMainController;
 import it.wipidea.cosmicmantra.core.MyKeyChecker;
 import it.wipidea.cosmicmantra.utils.MantraUtil;
 
@@ -63,21 +64,21 @@ public class MyJFrame extends JFrame {
         } else {
             String keyAlreadyListed = "";
 
-            keyAlreadyListed += MantraCoreRunner.STAT_KEY_TOTALS+";";
+            keyAlreadyListed += AMainController.STAT_KEY_TOTALS+";";
             //String.format("%,d", no);
-            content += String.format("%s = %s\n", MantraCoreRunner.STAT_KEY_TOTALS,
-                    String.format("%,d", STATS.get(MantraCoreRunner.STAT_KEY_TOTALS))
+            content += String.format("%s = %s\n", AMainController.STAT_KEY_TOTALS,
+                    String.format("%,d", STATS.get(AMainController.STAT_KEY_TOTALS))
             );
 
-            keyAlreadyListed += MantraCoreRunner.STAT_KEY_TOTAL_PRIMENUMS+";";
-            content += String.format("%s = %s\n", MantraCoreRunner.STAT_KEY_TOTAL_PRIMENUMS,
+            keyAlreadyListed += AMainController.STAT_KEY_TOTAL_PRIMENUMS+";";
+            content += String.format("%s = %s\n", AMainController.STAT_KEY_TOTAL_PRIMENUMS,
                     //"WIP"
-                    String.format("%,d", MantraCoreRunner.elenco_numeri_primi.size())
+                    String.format("%,d", AMainController.elenco_numeri_primi.size())
             );
 
-            keyAlreadyListed += MantraCoreRunner.STAT_KEY_LAST1ST_PRIMENUM+";";
-            content += String.format("%s = %s\n", MantraCoreRunner.STAT_KEY_LAST1ST_PRIMENUM,
-                    String.format("%,d", STATS.get(MantraCoreRunner.STAT_KEY_LAST1ST_PRIMENUM))
+            keyAlreadyListed += AMainController.STAT_KEY_LAST1ST_PRIMENUM+";";
+            content += String.format("%s = %s\n", AMainController.STAT_KEY_LAST1ST_PRIMENUM,
+                    String.format("%,d", STATS.get(AMainController.STAT_KEY_LAST1ST_PRIMENUM))
             );
 
             for (Object k : STATS.keySet()) {

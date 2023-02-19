@@ -1,7 +1,7 @@
 package it.wipidea.cosmicmantra.utils;
 
 import it.wipidea.cosmicmantra.EnMantraInvocationType;
-import it.wipidea.cosmicmantra.MantraCoreRunner;
+import it.wipidea.cosmicmantra.controller.AMainController;
 import it.wipidea.cosmicmantra.core.EnMantraConstants;
 
 import java.io.File;
@@ -35,7 +35,7 @@ public final class MantraFileUtil {
     }
 
     public final static void statisticaSuFile(ConcurrentHashMap hash, String[] info2print) {
-        File f = new File(MantraCoreRunner.STATS_GLOBAL_PATH);
+        File f = new File(AMainController.STATS_GLOBAL_PATH);
         try {
             FileWriter fw = new FileWriter(f, false);
             //fw.append( String.format( "x=%s;y=%s;w=%s;h=%s", ((Point)objects[0]).x, ((Point)objects[0]).y, ((Dimension)objects[1]).width, ((Dimension)objects[1]).height ));
@@ -127,6 +127,8 @@ public final class MantraFileUtil {
             return EnMantraInvocationType.Latin;
         } else if (arg.equals("Angels")) {
             return EnMantraInvocationType.Angels;
+        } else if (arg.equals("Islam")) {
+            return EnMantraInvocationType.Islam;
         } else if (arg.equals("PrecettiCosmici")) {
             return EnMantraInvocationType.PrecettiCosmici;
         } else if (arg.equals("PrecettiCosmiciSintetici")) {

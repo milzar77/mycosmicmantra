@@ -1,6 +1,7 @@
 package it.wipidea.cosmicmantra.core;
 
-import it.wipidea.cosmicmantra.MantraCoreRunner;
+import it.wipidea.cosmicmantra.controller.AMainController;
+import it.wipidea.cosmicmantra.controller.MantraMainController;
 import it.wipidea.cosmicmantra.gui.MyJFrame;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class MyKeyChecker extends KeyAdapter {
 
         if (idk == KeyEvent.VK_P) {
             System.out.println("==> KEY BREAK'EM ALL, NEEDS RESTART <==");
-            MantraCoreRunner.executorService.shutdownNow();
+            MantraMainController.executorService.shutdownNow();
         }
 
         if (event.isControlDown()) {
@@ -34,9 +35,9 @@ public class MyKeyChecker extends KeyAdapter {
                 if (event.getSource() instanceof MyJFrame) {
                     ((MyJFrame)event.getSource()).printStats(false);
                 } else {
-                    MantraCoreRunner.windowHook.printStats(false);
-                    if (MantraCoreRunner.windowHook.getState()==JFrame.ICONIFIED) {
-                        MantraCoreRunner.windowHook.setState(JFrame.NORMAL);
+                    AMainController.windowHook.printStats(false);
+                    if (AMainController.windowHook.getState()==JFrame.ICONIFIED) {
+                        AMainController.windowHook.setState(JFrame.NORMAL);
                     }
 
                 }
@@ -44,7 +45,7 @@ public class MyKeyChecker extends KeyAdapter {
             if (idk == KeyEvent.VK_H) {
                 System.out.println("==> KEY HIDE STAT <==");
                 System.out.printf("==> %s <==\n", event.getSource());
-                MantraCoreRunner.windowHook.setState(JFrame.ICONIFIED);
+                AMainController.windowHook.setState(JFrame.ICONIFIED);
             }
         }
 
