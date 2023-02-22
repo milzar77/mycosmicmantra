@@ -12,7 +12,7 @@ public abstract class ASingleController implements ISingleController {
     public Long MANTRA_INTERVAL_PRAYER;
     public Integer LIMIT_FOR_MANTRA_KEYWORD;
 
-    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_SWE = "swedish", LANG_CHI = "chinese", LANG_HIN = "hindi";
+    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_SWE = "swedish", LANG_CHI = "chinese", LANG_CHILAT = "chinese latin", LANG_HIN = "hindi";
 
     protected String keywordSep = ",";
 
@@ -85,7 +85,12 @@ public abstract class ASingleController implements ISingleController {
         String[] mantraLangs = PROPS.getProperty("mantra.prayer.langs").split(",");
         for (String lang : mantraLangs) {
             System.out.println(lang+"="+ PROPS.getProperty("mantra.prayer."+lang.trim()) );
-            String[] mantraWords = PROPS.getProperty("mantra.prayer."+lang.trim()).split(/*keywordSep*/PROPS.getProperty("mantra.interval.separator"));
+            String mantraSentence = PROPS.getProperty("mantra.prayer."+lang.trim());
+            String[] mantraWords = {};
+            if (mantraSentence.indexOf("\n")!=-1)
+                mantraWords = mantraSentence.split(/*keywordSep*/PROPS.getProperty("mantra.interval.separator"));
+            else
+                mantraWords = new String[]{mantraSentence};
 
             for (String word : mantraWords) {
                 myMantraKeywords.addMantraDirective(lang, word.trim());
