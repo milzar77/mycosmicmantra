@@ -12,7 +12,7 @@ public abstract class ASingleController implements ISingleController {
     public Long MANTRA_INTERVAL_PRAYER;
     public Integer LIMIT_FOR_MANTRA_KEYWORD;
 
-    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_SWE = "swedish", LANG_CHI = "chinese", LANG_CHILAT = "chinese latin", LANG_HIN = "hindi";
+    public final static String LANG_LOV = "love", LANG_LAT="latin", LANG_ITA = "italiano", LANG_ENG = "english", LANG_FRA = "français", LANG_ESP="espanol", LANG_POR="portugais", LANG_DEU="deutsch", LANG_SWE = "swedish", LANG_CHI = "chinese", LANG_CHILAT = "chinese latin", LANG_HIN = "hindi", LANG_HINLAT = "hindi latin", LANG_ARA = "arabic", LANG_ARALAT = "arabic latin", LANG_RUS = "russian", LANG_RUSLAT = "russian latin";
 
     protected String keywordSep = ",";
 
