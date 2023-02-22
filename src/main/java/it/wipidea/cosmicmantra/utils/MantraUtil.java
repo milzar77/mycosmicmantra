@@ -240,12 +240,16 @@ public class MantraUtil {
         return false;
     }
 
-    public static void drawStringWithNewLine(Graphics g, String text, int x, int y) {
+    public static void drawStringWithNewLine(Graphics g, String text, int x, int y, boolean isStraightLine) {
         Font font = new Font(Font.MONOSPACED, Font.PLAIN, MantraUtil.getDefaultFontSize());
         g.setFont(font);
-        /*for (String line : text.split("\n"))
-            g.drawString(line, x, y += g.getFontMetrics().getHeight()+4);*/
-        g.drawString(text, x, y += g.getFontMetrics().getHeight()+4);
+        if (isStraightLine) {
+            g.drawString(text, x, y += g.getFontMetrics().getHeight() + 4);
+        } else {
+            for (String line : text.split("\n"))
+                g.drawString(line, x, y += g.getFontMetrics().getHeight() + 4);
+        }
+
     }
 
     public static Integer getDefaultFontSize() {

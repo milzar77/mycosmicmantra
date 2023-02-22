@@ -110,7 +110,8 @@ public class MyJFrame extends JFrame {
         MantraUtil.drawStringWithNewLine(
                 g2d,
                 textBuffer,
-                10,50
+                10,50,
+                false
         );
 
     }

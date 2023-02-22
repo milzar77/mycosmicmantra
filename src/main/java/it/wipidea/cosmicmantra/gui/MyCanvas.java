@@ -84,7 +84,7 @@ public class MyCanvas extends JPanel {
 
         //int posY = cnt * TEXT_JUMP_Y;
 
-        MantraUtil.drawStringWithNewLine(g2d, sentenceBuffer, posXBuffer, posYBuffer);//g
+        MantraUtil.drawStringWithNewLine(g2d, sentenceBuffer, posXBuffer, posYBuffer, true);//g
         //OLD SAFE:
         //g2d.drawString(sentenceBuffer, posXBuffer, posYBuffer);
 

@@ -384,7 +384,7 @@ public class MantraFrame extends JFrame {
         g2d.setFont(font);
         */
 
-        MantraUtil.drawStringWithNewLine(g2d, sentenceBuffer, posXBuffer, posYBuffer);//g
+        MantraUtil.drawStringWithNewLine(g2d, sentenceBuffer, posXBuffer, posYBuffer, true);//g
         //OLD SAFE: g2d.drawString(sentenceBuffer, posXBuffer, posYBuffer);
 
         /*
