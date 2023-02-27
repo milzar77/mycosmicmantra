@@ -117,6 +117,8 @@ public final class MantraFileUtil {
 
         if (arg.equals("Secret")) {
             return EnMantraInvocationType.Secret;
+        } else if (arg.equals("Custom")) {
+            return EnMantraInvocationType.Custom;
         } else if (arg.equals("Cosmic")) {
             return EnMantraInvocationType.Cosmic;
         } else if (arg.equals("Christian")) {

@@ -9,6 +9,8 @@ import it.wipidea.cosmicmantra.core.objects.MantraWords;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URI;
 import java.util.Properties;
 import java.util.Random;
 import java.util.logging.Logger;
@@ -57,16 +59,25 @@ public final class MantraSingleController extends ASingleController {
             configurationFile = new File(configurationFileName);
 
         logger.finer( String.format("Starting mantra preparation...") );
-        logger.info( String.format("Reading mantra from file: [%s]", configurationFile.getAbsolutePath()) );
+        logger.info( String.format("Reading mantra from file: [%s], does it exist? %s", configurationFile.getAbsolutePath(), configurationFile.exists()) );
         logger.finest( String.format("Prepare mantra.") );
         //FV: caricamento del file di configurazione del mantra corrente
 //        super.PROPS = new Properties();
         try {
             //PROPS.load( Object.class.getClass().getResource( System.getProperty("inputFile") ).openConnection().getInputStream() );
             String fileNameAsResource = configurationFile.getCanonicalPath().replace('\\','/');
-            if (fileNameAsResource.indexOf(':')==-1)
-                super.PROPS.load( this.getClass().getResource( fileNameAsResource ).openConnection().getInputStream() );
-            else {
+            if (fileNameAsResource.indexOf(':')==-1) {
+                logger.info( String.format("Mantra preparation with absolute path [%s]", fileNameAsResource) );
+                //super.PROPS.load(this.getClass().getResource(fileNameAsResource).openConnection().getInputStream());
+                if (fileNameAsResource.indexOf("mantraAtRuntime.properties")==-1) {
+                    super.PROPS.load(this.getClass().getResourceAsStream(fileNameAsResource));
+                } else {
+                    //FileReader fr = new FileReader(fileNameAsResource);
+                    URI uri = new URI("file:"+fileNameAsResource);
+                    super.PROPS.load( uri.toURL().openStream() );
+                }
+            } else {
+                logger.info( String.format("Mantra preparation with URI path [%s]", fileNameAsResource) );
                 try {
                     super.PROPS.load(new FileReader(fileNameAsResource));
                 } catch (Exception ex1) {

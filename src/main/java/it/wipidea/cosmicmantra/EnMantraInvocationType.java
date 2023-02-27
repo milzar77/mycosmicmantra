@@ -2,7 +2,7 @@ package it.wipidea.cosmicmantra;
 
 public enum EnMantraInvocationType {
 
-    Test(-1), All(0), Cosmic(1), Christian(2), Bible(3), Latin(4), Islam(5), Angels(6), Secret(7), PrecettiCosmici(8), PrecettiCosmiciSintetici(9);
+    Test(-1), Custom(0), All(1), Cosmic(2), Christian(3), Bible(4), Latin(5), Islam(6), Angels(7), Secret(8), PrecettiCosmici(9), PrecettiCosmiciSintetici(10);
 
     Integer myflag;
     EnMantraInvocationType(int flag) {

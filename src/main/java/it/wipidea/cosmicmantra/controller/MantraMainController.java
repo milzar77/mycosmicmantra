@@ -4,12 +4,11 @@ import it.wipidea.cosmicmantra.EnMantraInvocationType;
 import it.wipidea.cosmicmantra.MantraRunType;
 import it.wipidea.cosmicmantra.core.EnMantraConstants;
 import it.wipidea.cosmicmantra.core.MantraChannelManager;
-
 import it.wipidea.cosmicmantra.utils.MantraFileUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +41,41 @@ public class MantraMainController extends AMainController {
     private static Logger logger;
 
     static {
-        String path = MantraMainController.class
-                .getClassLoader()
-                .getResource("logging-mantra.properties")
-                .getFile();
-        System.setProperty("java.util.logging.config.file", path);
-        //log = Logger.getLogger(MantraMainController.class.getName());
-        logger = Logger.getLogger(EnMantraConstants.LOGGER_SINGLE_NAME);
+        try {
+            System.out.println("Reading logging configuration...");
+            String path = MantraMainController.class
+                    .getClassLoader()
+                    .getResource("logging-mantra.properties")
+                    .getFile();
+            System.out.println("Reading logging configuration from: " + path);
+            if (path!=null && path.indexOf('!')!=-1) {
+                System.out.println("Reading logging configuration from JAR!");
+                InputStream is = MantraMainController.class
+                        .getClassLoader()
+                        .getResourceAsStream("logging-mantra.properties");
+                String newLoggingFile = "extraction-logging.properties";
+                File f = new File(newLoggingFile);
+                System.out.println("NEW LOGGING CONFIGURATION FILE IN: " + f.getAbsolutePath());
+                FileWriter fw = new FileWriter(f);
+                InputStreamReader isr = new InputStreamReader(is);
+                BufferedReader br = new BufferedReader(isr);
+                String line = null;
+                while ( (line = br.readLine()) != null) {
+                    //System.out.println("DEBUG: " + line);
+                    fw.write(line+"\n");
+                }
+                fw.flush();
+                fw.close();
+                System.setProperty("java.util.logging.config.file", f.getAbsolutePath());
+            } else {
+                System.setProperty("java.util.logging.config.file", path);
+            }
+
+            //log = Logger.getLogger(MantraMainController.class.getName());
+            logger = Logger.getLogger(EnMantraConstants.LOGGER_SINGLE_NAME);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
 
@@ -91,11 +118,40 @@ public class MantraMainController extends AMainController {
         if(mantraSwitch==null)
             mantraSwitch = MantraFileUtil.detectSetting();
 
-        logger.info("mantraSwitch: "  + mantraSwitch);
+        if (mantraSwitch == EnMantraInvocationType.Custom) {
+            try {
+                File fBaseDir = new File(".");
+                String currentPath = MantraMainController.class.getResource("").getPath();
+                File f1 = new File(currentPath);
+                if (f1.getAbsolutePath().indexOf('!') != -1) {
+                    File f2 = new File(currentPath.substring(0, currentPath.indexOf('!')));
+                    logger.info("Loading customized MANTRA from: " + fBaseDir);
+                    fBaseDir = f2.getParentFile();
+                    logger.info("Loading customized MANTRA@RUNTIME from: " + fBaseDir);
+                } else {
+                    logger.info("Loading mantra customized@runtime from " + currentPath);
+                }
+
+                if (fBaseDir.getPath().indexOf("file:") != -1) {
+                    fBaseDir = new File(fBaseDir.getPath().substring("file:".length()));
+                }
+
+                File fMantraAtRuntime = new File(fBaseDir.getPath() + "/mantraAtRuntime.properties");
+                logger.info("Loading mantra customized from: " + fMantraAtRuntime);
+                if (fMantraAtRuntime.exists()) {
+                    msc = this.createMantraSingleController(fMantraAtRuntime.getPath());
+                    this.addTask(msc);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        logger.info("Loading pre-configured mantras [mantraSwitch="  + mantraSwitch+"]");
 
         switch (mantraSwitch) {
             case Test:
-                msc = this.createMantraSingleController("/mantras/AngeloCustodeInvocation_Configuration.properties");
+                msc = this.createMantraSingleController("/mantras/Angels/AngeloCustodeInvocation_Configuration.properties");
                 this.addTask(msc);
                 break;
             case All:
@@ -162,13 +218,13 @@ public class MantraMainController extends AMainController {
                 break;
             case Angels:
                 //this.runMantraAngels();
-                msc = this.createMantraSingleController("/mantras/AngeloCustodeInvocation_Configuration.properties");
+                msc = this.createMantraSingleController("/mantras/Angels/AngeloCustodeInvocation_Configuration.properties");
                 this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/PreghieraInvocazioneHAAIAH_Configuration.properties");
+                msc = this.createMantraSingleController("/mantras/Angels/PreghieraInvocazioneHAAIAH_Configuration.properties");
                 this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/ArchangelInvocationSanMiguel_Configuration.properties");
+                msc = this.createMantraSingleController("/mantras/Angels/ArchangelInvocationSanMiguel_Configuration.properties");
                 this.addTask(msc);
-                /*msc = this.createMantraSingleController("/mantras/ArchangelInvocationJOFIEL_Configuration.properties");
+                /*msc = this.createMantraSingleController("/mantras/Angels/ArchangelInvocationJOFIEL_Configuration.properties");
                 this.addTask(msc);*/
                 break;
             case PrecettiCosmici:
