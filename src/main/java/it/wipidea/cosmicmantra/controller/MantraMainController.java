@@ -119,6 +119,7 @@ public class MantraMainController extends AMainController {
             mantraSwitch = MantraFileUtil.detectSetting();
 
         if (mantraSwitch == EnMantraInvocationType.Custom) {
+            //TODO: aggiungere caricamento mantra a caldo
             try {
                 File fBaseDir = new File(".");
                 String currentPath = MantraMainController.class.getResource("").getPath();
