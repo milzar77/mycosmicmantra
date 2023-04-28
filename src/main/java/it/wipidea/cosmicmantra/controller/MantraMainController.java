@@ -193,6 +193,8 @@ public class MantraMainController extends AMainController {
                 this.addTask(msc);
                 msc = this.createMantraSingleController("/mantras/PreghieraLambertNoben_Configuration.properties");
                 this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/SANFDAPreghieraSemplice_Configuration.properties");
+                this.addTask(msc);
                 break;
             case Bible:
                 //this.runMantraBible();
@@ -224,6 +226,8 @@ public class MantraMainController extends AMainController {
                 msc = this.createMantraSingleController("/mantras/Angels/PreghieraInvocazioneHAAIAH_Configuration.properties");
                 this.addTask(msc);
                 msc = this.createMantraSingleController("/mantras/Angels/ArchangelInvocationSanMiguel_Configuration.properties");
+                this.addTask(msc);
+                msc = this.createMantraSingleController("/mantras/Angels/Orfano&VedovaInvocation_Configuration.properties");
                 this.addTask(msc);
                 /*msc = this.createMantraSingleController("/mantras/Angels/ArchangelInvocationJOFIEL_Configuration.properties");
                 this.addTask(msc);*/
