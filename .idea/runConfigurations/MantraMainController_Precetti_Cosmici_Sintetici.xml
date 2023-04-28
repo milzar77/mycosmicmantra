@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="MantraMainController Precetti Cosmici Sintetici" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="it.wipidea.cosmicmantra.controller.MantraMainController" />
+    <module name="playground" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tmp/PrecettiCosmiciSintetici" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="it.wipidea.cosmicmantra.controller.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -88,6 +88,7 @@ public class MantraMainController extends AMainController {
     public static List<ASingleController> callableMantraSingleControllers = new ArrayList<>();
 
     public static ExecutorService executorService;
+    private boolean skipOtherMantras = false;
 
     public Runnable createTask(MantraSingleController my) {
         Runnable callableTask = () -> {
@@ -137,11 +138,12 @@ public class MantraMainController extends AMainController {
                     fBaseDir = new File(fBaseDir.getPath().substring("file:".length()));
                 }
 
-                File fMantraAtRuntime = new File(fBaseDir.getPath() + "/mantraAtRuntime.properties");
-                logger.info("Loading mantra customized from: " + fMantraAtRuntime);
+                File fMantraAtRuntime = new File(fBaseDir.getAbsolutePath() + "/mantraAtRuntime.properties");
                 if (fMantraAtRuntime.exists()) {
+                    logger.info("Loading mantra customized from: " + fMantraAtRuntime);
                     msc = this.createMantraSingleController(fMantraAtRuntime.getPath());
                     this.addTask(msc);
+                    skipOtherMantras = true;
                 }
             } catch (Exception ex) {
                 ex.printStackTrace();
@@ -150,12 +152,13 @@ public class MantraMainController extends AMainController {
 
         logger.info("Loading pre-configured mantras [mantraSwitch="  + mantraSwitch+"]");
 
-        switch (mantraSwitch) {
-            case Test:
-                msc = this.createMantraSingleController("/mantras/Angels/AngeloCustodeInvocation_Configuration.properties");
-                this.addTask(msc);
-                break;
-            case All:
+        if (!skipOtherMantras && !mantraSwitch.equals(EnMantraInvocationType.Custom)) {
+            switch (mantraSwitch) {
+                case Test:
+                    msc = this.createMantraSingleController("/mantras/Angels/AngeloCustodeInvocation_Configuration.properties");
+                    this.addTask(msc);
+                    break;
+                case All:
                 /*
                 this.runMantraSecret();
                 this.runMantraCosmic();
@@ -164,86 +167,86 @@ public class MantraMainController extends AMainController {
                 this.runMantraLatin();
                 this.runMantraPrecetti();
                 */
-                break;
-            case Secret:
-                //this.runMantraSecret();
-                msc = this.createMantraSingleController("/mantras/MyCosmicMantra_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/HopeNeverDie_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/SadhGuruChant_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/TheMindIsAMine_Configuration.properties");
-                this.addTask(msc);
-                break;
-            case Cosmic:
-                //this.runMantraCosmic();
-                msc = this.createMantraSingleController("/mantras/BluesBrotherContact_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/WaitingMessiah_Configuration.properties");
-                this.addTask(msc);
-                break;
-            case Christian:
-                //this.runMantraChristian();
-                msc = this.createMantraSingleController("/mantras/Osanna_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/InvocazioneCristo_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/PreghieraGesù_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/PreghieraLambertNoben_Configuration.properties");
-                this.addTask(msc);
-                break;
-            case Bible:
-                //this.runMantraBible();
-                msc = this.createMantraSingleController("/mantras/Decalogo_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/SalveReginaConfiguration.properties");
-                this.addTask(msc);
-                break;
-            case Latin:
-                //this.runMantraLatin();
-                msc = this.createMantraSingleController("/mantras/MSICS_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/IMSV_Configuration.properties");
-                this.addTask(msc);
-                break;
-            case Islam:
-                //this.runMantraAngels();
-                msc = this.createMantraSingleController("/mantras/IslamInvocation_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/InshAllahInvocation_Configuration.properties");
-                this.addTask(msc);
+                    break;
+                case Secret:
+                    //this.runMantraSecret();
+                    msc = this.createMantraSingleController("/mantras/MyCosmicMantra_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/HopeNeverDie_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/SadhGuruChant_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/TheMindIsAMine_Configuration.properties");
+                    this.addTask(msc);
+                    break;
+                case Cosmic:
+                    //this.runMantraCosmic();
+                    msc = this.createMantraSingleController("/mantras/BluesBrotherContact_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/WaitingMessiah_Configuration.properties");
+                    this.addTask(msc);
+                    break;
+                case Christian:
+                    //this.runMantraChristian();
+                    msc = this.createMantraSingleController("/mantras/Osanna_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/InvocazioneCristo_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/PreghieraGesù_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/PreghieraLambertNoben_Configuration.properties");
+                    this.addTask(msc);
+                    break;
+                case Bible:
+                    //this.runMantraBible();
+                    msc = this.createMantraSingleController("/mantras/Decalogo_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/SalveReginaConfiguration.properties");
+                    this.addTask(msc);
+                    break;
+                case Latin:
+                    //this.runMantraLatin();
+                    msc = this.createMantraSingleController("/mantras/MSICS_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/IMSV_Configuration.properties");
+                    this.addTask(msc);
+                    break;
+                case Islam:
+                    //this.runMantraAngels();
+                    msc = this.createMantraSingleController("/mantras/IslamInvocation_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/InshAllahInvocation_Configuration.properties");
+                    this.addTask(msc);
                 /*msc = this.createMantraSingleController("/mantras/ArchangelInvocationJOFIEL_Configuration.properties");
                 this.addTask(msc);*/
-                break;
-            case Angels:
-                //this.runMantraAngels();
-                msc = this.createMantraSingleController("/mantras/Angels/AngeloCustodeInvocation_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/Angels/PreghieraInvocazioneHAAIAH_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/Angels/ArchangelInvocationSanMiguel_Configuration.properties");
-                this.addTask(msc);
+                    break;
+                case Angels:
+                    //this.runMantraAngels();
+                    msc = this.createMantraSingleController("/mantras/Angels/AngeloCustodeInvocation_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/Angels/PreghieraInvocazioneHAAIAH_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/Angels/ArchangelInvocationSanMiguel_Configuration.properties");
+                    this.addTask(msc);
                 /*msc = this.createMantraSingleController("/mantras/Angels/ArchangelInvocationJOFIEL_Configuration.properties");
                 this.addTask(msc);*/
-                break;
-            case PrecettiCosmici:
-                //this.runMantraPrecetti();
-                msc = this.createMantraSingleController("/mantras/EptalogoCosmico_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/EptalogoCristico_Configuration.properties");
-                this.addTask(msc);
-                break;
-            case PrecettiCosmiciSintetici:
-                //this.runMantraPrecettiSintetici();
-                msc = this.createMantraSingleController("/mantras/EptalogoCosmicoSintetico_Configuration.properties");
-                this.addTask(msc);
-                msc = this.createMantraSingleController("/mantras/EptalogoCristicoSintetico_Configuration.properties");
-                this.addTask(msc);
-                break;
+                    break;
+                case PrecettiCosmici:
+                    //this.runMantraPrecetti();
+                    msc = this.createMantraSingleController("/mantras/EptalogoCosmico_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/EptalogoCristico_Configuration.properties");
+                    this.addTask(msc);
+                    break;
+                case PrecettiCosmiciSintetici:
+                    //this.runMantraPrecettiSintetici();
+                    msc = this.createMantraSingleController("/mantras/EptalogoCosmicoSintetico_Configuration.properties");
+                    this.addTask(msc);
+                    msc = this.createMantraSingleController("/mantras/EptalogoCristicoSintetico_Configuration.properties");
+                    this.addTask(msc);
+                    break;
+            }
         }
-
     }
 
     public void startAppExecutor(MantraRunType en) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException, InterruptedException {
@@ -391,6 +394,11 @@ public class MantraMainController extends AMainController {
             MantraMainController mantraMainController = new MantraMainController(switchParam);
             System.err.printf("mantraMainController.callableTasks is [%s]\n", callableTasks);
             System.err.printf("switchParam is [%s]\n", switchParam);
+
+            if (callableTasks.size()==0) {
+                System.err.println("/!\\ \tNo callable task pre-loaded, running mantra runtime with hot deploy");
+                return;
+            }
 
             //mantras.speak();
 
