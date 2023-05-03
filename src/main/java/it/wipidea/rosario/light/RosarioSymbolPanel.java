@@ -15,6 +15,9 @@ public class RosarioSymbolPanel extends JPanel implements IPanelCaller {
     public RosarioSymbolPanel() {
         jta = new JTextArea("");
 
+        jta.setBackground(RosarioConsts.bgColor1);
+        jta.setForeground(RosarioConsts.fgColor1);
+
         this.setLayout(new BorderLayout());
         this.add(jta, BorderLayout.CENTER);
     }
