@@ -5,11 +5,18 @@ import java.awt.*;
 
 public class RosarioLightWindowMain {
 
-    private JFrame jFrame;
+    public static RosarioManualButtonPanel instanceRosarioManualButton;
+    public static RosarioButtonPanel instanceRosarioButton;
+    public static RosarioSymbolPanel instanceRosarioSymbol;
+
+    public static Boolean activateSingleLine = true;
+
+    public JFrame jFrame;
 
     public RosarioLightWindowMain()  {
         jFrame = new JFrame("Rosario Light");
-        jFrame.setPreferredSize(new Dimension(180,180));
+        jFrame.setPreferredSize(new Dimension(280,180));
+        jFrame.setLocation(350, 250);
         jFrame.setUndecorated(true);
 
         Thread tExit = new Thread() {
@@ -24,14 +31,14 @@ public class RosarioLightWindowMain {
 
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        RosarioSymbolPanel panel = new RosarioSymbolPanel();
+        RosarioSymbolPanel panel = instanceRosarioSymbol = new RosarioSymbolPanel();
 
-        RosarioManualButtonPanel rosarioManualButtonPanel = new RosarioManualButtonPanel(panel);
+        RosarioManualButtonPanel rosarioManualButtonPanel = instanceRosarioManualButton = new RosarioManualButtonPanel(panel);
         jFrame.getContentPane().add(rosarioManualButtonPanel, BorderLayout.NORTH);
 
         jFrame.getContentPane().add(panel, BorderLayout.CENTER);
 
-        RosarioButtonPanel rosarioButtonPanel = new RosarioButtonPanel(panel);
+        RosarioButtonPanel rosarioButtonPanel = instanceRosarioButton = new RosarioButtonPanel(panel);
         jFrame.getContentPane().add(rosarioButtonPanel, BorderLayout.SOUTH);
 
 

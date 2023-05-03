@@ -5,12 +5,14 @@ import java.awt.*;
 
 public class RosarioSymbolPanel extends JPanel implements IPanelCaller {
 
+
+
     private JTextArea jta;
 
     private Integer prayerIndex = 0;
     private Integer globalPrayerIndex = 0;
-
     private Integer theMorningStarPrayerIndex = 0;
+    private Integer incrementoRosarioSerie = 1;
 
     public RosarioSymbolPanel() {
         jta = new JTextArea("");
@@ -45,14 +47,55 @@ public class RosarioSymbolPanel extends JPanel implements IPanelCaller {
         if (currentText == null) {
             currentText = "";
         }
+
+        RosarioLightWindowMain.instanceRosarioManualButton.jbAddPaterNoster.setBackground(RosarioLightWindowMain.instanceRosarioManualButton.colorPater);
+        RosarioLightWindowMain.instanceRosarioManualButton.jbAddAveMater.setBackground(RosarioLightWindowMain.instanceRosarioManualButton.colorMater);
+
         if (globalPrayerIndex<RosarioConsts.schemeMantraForAllOfUs.length*RosarioConsts.MANTRA_TOTALCOUNT_FORALLOFUS) {
             if (prayerIndex<RosarioConsts.schemeMantraForAllOfUs.length) {
                 jta.setText(currentText + RosarioConsts.schemeMantraForAllOfUs[prayerIndex].textSymbol);
+
+                if ( RosarioConsts.schemeMantraForAllOfUs[prayerIndex].equals(ERosarioSymbol.SYM_PATER) ) {
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddPaterNoster.setBackground(Color.YELLOW);
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddAveMater.setBackground(RosarioLightWindowMain.instanceRosarioManualButton.colorMater);
+
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddPaterNoster.setText( String.format( RosarioLightWindowMain.instanceRosarioManualButton.sPaterPrefix + "[%s]", incrementoRosarioSerie) );
+                }
+
+                if ( RosarioConsts.schemeMantraForAllOfUs[prayerIndex].equals(ERosarioSymbol.SYM_AVE) ) {
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddPaterNoster.setBackground(RosarioLightWindowMain.instanceRosarioManualButton.colorPater);
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddAveMater.setBackground(Color.YELLOW);
+
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddAveMater.setText( String.format( RosarioLightWindowMain.instanceRosarioManualButton.sAvePrefix + "[%02d%n]", prayerIndex) );
+                }
+
                 prayerIndex++;
+
             } else {
                 prayerIndex=0;
-                jta.setText(currentText + "\n" + RosarioConsts.schemeMantraForAllOfUs[prayerIndex].textSymbol);
+                incrementoRosarioSerie++;
+
+                currentText = RosarioLightWindowMain.activateSingleLine ? "" : currentText;
+
+                jta.setText(currentText + (RosarioLightWindowMain.activateSingleLine ? "" : "\n") + RosarioConsts.schemeMantraForAllOfUs[prayerIndex].textSymbol);
+
+                if ( RosarioConsts.schemeMantraForAllOfUs[prayerIndex].equals(ERosarioSymbol.SYM_PATER) ) {
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddPaterNoster.setBackground(Color.YELLOW);
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddAveMater.setBackground(RosarioLightWindowMain.instanceRosarioManualButton.colorMater);
+
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddPaterNoster.setText( String.format(RosarioLightWindowMain.instanceRosarioManualButton.sPaterPrefix + "[%s]", incrementoRosarioSerie) );
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddAveMater.setText( String.format(RosarioLightWindowMain.instanceRosarioManualButton.sAvePrefix + "[%02d%n]", 0) );
+                }
+
+                if ( RosarioConsts.schemeMantraForAllOfUs[prayerIndex].equals(ERosarioSymbol.SYM_AVE) ) {
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddPaterNoster.setBackground(RosarioLightWindowMain.instanceRosarioManualButton.colorPater);
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddAveMater.setBackground(Color.YELLOW);
+
+                    RosarioLightWindowMain.instanceRosarioManualButton.jbAddAveMater.setText( String.format(RosarioLightWindowMain.instanceRosarioManualButton.sAvePrefix + "[%02d%n]", prayerIndex) );
+                }
+
                 prayerIndex++;
+
             }
         } else {
             if (prayerIndex<RosarioConsts.schemeMantraForThePope.length) {
