@@ -2,9 +2,9 @@ package it.wipidea.rosario.light;
 
 public enum ERosarioSymbol {
 
-    SYM_PATER("\u002b"),
-    SYM_AVE("\u2600"),
-    SYM_GLORIA("\u2605"),
+    SYM_PATER("\u271D"),//2670=♰ //002b=+ //269a=⚚ //26b5=⚵ //271D=✝ //2795=➕ //2720=✠
+    SYM_AVE("\u25CF"),//2022=• //25C9=◉ //25C8=◈ //25CF=● //26AB=⚫ //272A=✪ //2742=❂
+    SYM_GLORIA( "\u2600" ),//2055= //2605= //2600=
     SYM_SALVE("\u2665");
 
     public String textSymbol;
